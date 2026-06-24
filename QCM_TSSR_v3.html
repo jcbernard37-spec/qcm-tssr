@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>QCM TSSR · Révision Examen Juillet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0f1a;
+  --card: #141829;
+  --card-hover: #1a2038;
+  --border: rgba(100,140,220,0.12);
+  --text: #d8dff0;
+  --text-dim: rgba(170,190,225,0.55);
+  --accent: #4f7bef;
+  --accent-glow: rgba(79,123,239,0.25);
+  --green: #34d399;
+  --green-bg: rgba(52,211,153,0.12);
+  --green-border: rgba(52,211,153,0.4);
+  --red: #f87171;
+  --red-bg: rgba(248,113,113,0.1);
+  --red-border: rgba(248,113,113,0.35);
+  --orange: #fbbf24;
+  --radius: 14px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body {
+  height:100%; background:var(--bg); color:var(--text);
+  font-family:'DM Sans',system-ui,sans-serif;
+  -webkit-tap-highlight-color:transparent;
+  overflow-x:hidden;
+}
+
+/* ── HEADER ── */
+#header {
+  position:sticky; top:0; z-index:10;
+  background:rgba(12,15,26,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:14px 20px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+#header-left { display:flex; align-items:center; gap:10px; }
+#header h1 {
+  font-size:16px; font-weight:700; letter-spacing:-0.3px;
+  background:linear-gradient(135deg,#7ba4f7,#a78bfa);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+}
+#score-badge {
+  display:flex; align-items:center; gap:14px;
+  font-size:13px; font-family:'JetBrains Mono',monospace;
+}
+.score-item { display:flex; align-items:center; gap:4px; }
+.score-dot { width:8px; height:8px; border-radius:50%; }
+.score-dot.green { background:var(--green); }
+.score-dot.red { background:var(--red); }
+
+/* ── PROGRESS ── */
+#progress-bar {
+  height:3px; background:rgba(255,255,255,0.06);
+  position:sticky; top:53px; z-index:9;
+}
+#progress-fill {
+  height:100%; width:0%;
+  background:linear-gradient(90deg,var(--accent),#a78bfa);
+  transition:width 0.5s ease;
+}
+
+/* ── START SCREEN ── */
+#start-screen {
+  min-height:100vh; padding:40px 20px;
+  display:flex; flex-direction:column; align-items:center;
+  gap:20px;
+}
+.logo-qcm {
+  width:72px; height:72px; border-radius:18px;
+  background:linear-gradient(135deg,rgba(79,123,239,0.25),rgba(167,139,250,0.2));
+  border:1.5px solid rgba(120,160,255,0.25);
+  display:flex; align-items:center; justify-content:center;
+  font-size:32px; margin-top:30px;
+}
+.start-title {
+  font-size:26px; font-weight:700; letter-spacing:-0.5px;
+  text-align:center; line-height:1.3;
+}
+.start-sub {
+  font-size:13px; color:var(--text-dim); text-align:center;
+  line-height:1.7; max-width:320px;
+}
+.start-stats {
+  display:flex; gap:20px; font-size:12px; color:var(--text-dim);
+  letter-spacing:0.5px;
+}
+.start-stats span { font-family:'JetBrains Mono',monospace; color:var(--accent); }
+
+/* ── TAG GRID ── */
+.tag-section-title {
+  font-size:11px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--text-dim); margin-top:10px;
+}
+#tag-grid {
+  display:grid; grid-template-columns:repeat(2,1fr);
+  gap:8px; width:100%; max-width:360px;
+}
+.tag-btn {
+  padding:10px 8px; border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text-dim);
+  font-size:12px; cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  transition:all 0.15s;
+  display:flex; align-items:center; gap:6px;
+  white-space:nowrap; overflow:hidden;
+}
+.tag-btn:active { transform:scale(0.96); }
+.tag-btn.active {
+  background:var(--accent-glow);
+  border-color:rgba(79,123,239,0.45);
+  color:var(--text);
+}
+.tag-count {
+  margin-left:auto; font-family:'JetBrains Mono',monospace;
+  font-size:10px; opacity:0.5;
+}
+
+.btn-row { display:flex; gap:8px; width:100%; max-width:360px; }
+.btn-main {
+  flex:1; padding:14px; border-radius:12px;
+  border:1.5px solid rgba(79,123,239,0.4);
+  background:rgba(79,123,239,0.15);
+  color:#b8d0ff; font-size:15px; font-weight:600;
+  cursor:pointer; font-family:'DM Sans',sans-serif;
+  transition:all 0.2s; letter-spacing:0.3px;
+}
+.btn-main:active { transform:scale(0.97); background:rgba(79,123,239,0.3); }
+.btn-all {
+  padding:14px 18px; border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text-dim); font-size:13px;
+  cursor:pointer; font-family:'DM Sans',sans-serif;
+  transition:all 0.15s;
+}
+
+/* ── QUIZ SCREEN ── */
+#quiz-screen { display:none; min-height:100vh; padding:10px 16px 100px; }
+
+#question-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:24px 20px;
+  margin-bottom:14px;
+  position:relative;
+}
+#question-tag {
+  font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--accent); margin-bottom:10px;
+  font-family:'JetBrains Mono',monospace;
+}
+#question-number {
+  position:absolute; top:16px; right:18px;
+  font-size:11px; color:var(--text-dim);
+  font-family:'JetBrains Mono',monospace;
+}
+#question-text {
+  font-size:17px; line-height:1.65; font-weight:500;
+  letter-spacing:-0.1px;
+}
+
+/* ── CHOICES ── */
+#choices { display:flex; flex-direction:column; gap:10px; }
+.choice-btn {
+  padding:16px 18px; border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text); font-size:14px; line-height:1.55;
+  cursor:pointer; text-align:left;
+  font-family:'DM Sans',sans-serif;
+  transition:all 0.15s;
+  display:flex; align-items:flex-start; gap:12px;
+  position:relative;
+}
+.choice-btn:active { transform:scale(0.985); }
+.choice-btn:hover { background:var(--card-hover); border-color:rgba(120,160,255,0.25); }
+.choice-letter {
+  flex-shrink:0;
+  width:26px; height:26px; border-radius:8px;
+  background:rgba(255,255,255,0.06);
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:700;
+  font-family:'JetBrains Mono',monospace;
+  color:var(--text-dim);
+}
+.choice-text { flex:1; }
+
+/* États après réponse */
+.choice-btn.correct {
+  background:var(--green-bg) !important;
+  border-color:var(--green-border) !important;
+}
+.choice-btn.correct .choice-letter {
+  background:var(--green); color:#0c0f1a;
+}
+.choice-btn.wrong {
+  background:var(--red-bg) !important;
+  border-color:var(--red-border) !important;
+}
+.choice-btn.wrong .choice-letter {
+  background:var(--red); color:#0c0f1a;
+}
+.choice-btn.dimmed {
+  opacity:0.4;
+}
+.choice-btn.disabled { pointer-events:none; }
+
+/* ── EXPLICATION ── */
+#explanation {
+  display:none;
+  margin-top:14px;
+  border-radius:14px;
+  overflow:hidden;
+  font-size:13px; line-height:1.7;
+}
+#explanation .exp-header {
+  padding:12px 18px;
+  font-weight:700; font-size:14px;
+  display:flex; align-items:center; gap:8px;
+  letter-spacing:-0.2px;
+}
+#explanation .exp-header .exp-icon {
+  width:26px; height:26px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; font-weight:700;
+  flex-shrink:0;
+}
+#explanation .exp-body {
+  padding:14px 18px 16px;
+  background:rgba(255,255,255,0.02);
+}
+#explanation.correct {
+  background:var(--green-bg);
+  border:1px solid var(--green-border);
+}
+#explanation.correct .exp-header {
+  background:rgba(52,211,153,0.18);
+  color:var(--green);
+}
+#explanation.correct .exp-icon {
+  background:var(--green); color:#0c0f1a;
+}
+#explanation.wrong {
+  background:rgba(248,113,113,0.06);
+  border:1px solid rgba(248,113,113,0.3);
+}
+#explanation.wrong .exp-header {
+  background:rgba(248,113,113,0.15);
+  color:var(--red);
+}
+#explanation.wrong .exp-icon {
+  background:var(--red); color:#0c0f1a;
+}
+#explanation .correct-answer {
+  margin-top:10px; padding:12px 14px;
+  background:var(--green-bg);
+  border-left:3px solid var(--green);
+  border-radius:6px;
+}
+#explanation .correct-answer-label {
+  font-size:11px; letter-spacing:1px; text-transform:uppercase;
+  color:var(--green); font-weight:700;
+  margin-bottom:6px;
+}
+#explanation .answer-content {
+  color:var(--text);
+  font-size:14px; line-height:1.7;
+}
+#explanation .answer-content b { color:var(--green); font-weight:600; }
+
+#explanation .pedagogy {
+  margin-top:14px;
+  padding:14px 16px;
+  background:linear-gradient(135deg, rgba(180,140,255,0.08), rgba(180,140,255,0.03));
+  border-left:3px solid rgba(180,140,255,0.6);
+  border-radius:6px;
+  font-size:13.5px;
+  line-height:1.75;
+  color:rgba(220,210,240,0.95);
+}
+#explanation .pedagogy-label {
+  font-size:11px; letter-spacing:1.2px; text-transform:uppercase;
+  color:rgba(180,140,255,0.95); font-weight:700;
+  margin-bottom:8px;
+}
+#explanation .pedagogy b { color:rgb(210,180,255); font-weight:600; }
+#explanation .pedagogy code {
+  background:rgba(0,0,0,0.3);
+  padding:1px 6px; border-radius:4px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:rgba(255,200,150,0.95);
+}
+
+#explanation .memo {
+  margin-top:12px; padding:10px 14px;
+  background:rgba(120,160,255,0.06);
+  border-left:3px solid rgba(120,160,255,0.5);
+  border-radius:6px;
+  font-size:12px;
+  color:rgba(180,200,235,0.9);
+}
+#explanation .memo-label {
+  font-size:10px; letter-spacing:1px; text-transform:uppercase;
+  color:rgba(120,160,255,0.85); font-weight:700;
+  margin-bottom:4px;
+}
+
+/* ── NEXT BUTTON ── */
+#next-zone {
+  display:none;
+  position:fixed; bottom:0; left:0; right:0;
+  padding:16px 20px;
+  background:linear-gradient(transparent,rgba(12,15,26,0.95) 30%);
+}
+#btn-next {
+  width:100%; padding:16px; border-radius:14px;
+  border:none;
+  background:linear-gradient(135deg,var(--accent),#7c5cf5);
+  color:white; font-size:15px; font-weight:600;
+  cursor:pointer; font-family:'DM Sans',sans-serif;
+  letter-spacing:0.3px;
+  transition:transform 0.1s;
+}
+#btn-next:active { transform:scale(0.97); }
+
+/* ── RESULTS SCREEN ── */
+#results-screen {
+  display:none; min-height:100vh;
+  padding:50px 20px;
+  text-align:center;
+}
+.results-circle {
+  width:140px; height:140px; border-radius:50%;
+  margin:0 auto 24px;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace;
+}
+.results-pct { font-size:38px; font-weight:700; }
+.results-label { font-size:11px; letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+.results-title { font-size:22px; font-weight:700; margin-bottom:8px; }
+.results-sub { font-size:14px; color:var(--text-dim); line-height:1.6; margin-bottom:30px; }
+.results-details {
+  display:flex; gap:24px; justify-content:center;
+  margin-bottom:30px;
+  font-family:'JetBrains Mono',monospace; font-size:14px;
+}
+.results-btn-row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.results-btn {
+  padding:12px 24px; border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text); font-size:13px;
+  cursor:pointer; font-family:'DM Sans',sans-serif;
+}
+
+/* ── RESPONSIVE ── */
+@media (min-width:600px) {
+  #start-screen { padding:60px 20px; }
+  #tag-grid { grid-template-columns:repeat(3,1fr); max-width:480px; }
+  #quiz-screen { max-width:600px; margin:0 auto; }
+  .btn-row { max-width:480px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER (visible during quiz) -->
+<div id="header" style="display:none">
+  <div id="header-left">
+    <h1>QCM TSSR</h1>
+  </div>
+  <div id="score-badge">
+    <div class="score-item"><div class="score-dot green"></div><span id="score-correct">0</span></div>
+    <div class="score-item"><div class="score-dot red"></div><span id="score-wrong">0</span></div>
+  </div>
+</div>
+<div id="progress-bar" style="display:none"><div id="progress-fill"></div></div>
+
+<!-- START SCREEN -->
+<div id="start-screen">
+  <div class="logo-qcm">🎓</div>
+  <div class="start-title">QCM TSSR<br>Examen Juillet</div>
+  <div class="start-sub">
+    242 questions · 20 thèmes<br>
+    Choix multiples · Score en temps réel<br>
+    Sélectionne les thèmes à réviser
+  </div>
+
+  <div class="tag-section-title">Thèmes</div>
+  <div id="tag-grid"></div>
+
+  <div class="btn-row">
+    <button class="btn-all" onclick="selectAll()">Tout</button>
+    <button class="btn-main" onclick="startQuiz()">Lancer le QCM</button>
+    <button class="btn-all" onclick="selectNone()">Aucun</button>
+  </div>
+
+  <div class="start-stats">
+    <div>Sélection : <span id="selected-count">0</span> questions</div>
+  </div>
+</div>
+
+<!-- QUIZ SCREEN -->
+<div id="quiz-screen">
+  <div id="question-card">
+    <div id="question-tag"></div>
+    <div id="question-number"></div>
+    <div id="question-text"></div>
+  </div>
+  <div id="choices"></div>
+  <div id="explanation"></div>
+</div>
+
+<div id="next-zone">
+  <button id="btn-next" onclick="nextQuestion()">Question suivante →</button>
+</div>
+
+<!-- RESULTS SCREEN -->
+<div id="results-screen">
+  <div class="results-circle" id="results-circle">
+    <div class="results-pct" id="results-pct">0%</div>
+    <div class="results-label">Score</div>
+  </div>
+  <div class="results-title" id="results-title">Résultats</div>
+  <div class="results-sub" id="results-sub"></div>
+  <div class="results-details">
+    <div><span style="color:var(--green)">✓</span> <span id="final-correct">0</span> bonnes</div>
+    <div><span style="color:var(--red)">✗</span> <span id="final-wrong">0</span> erreurs</div>
+  </div>
+  <div class="results-btn-row">
+    <button class="results-btn" onclick="retryWrong()">🔄 Refaire les erreurs</button>
+    <button class="results-btn" onclick="backToStart()">← Retour au menu</button>
+    <button class="results-btn" onclick="startQuiz()">🔀 Nouveau quiz</button>
+  </div>
+</div>
+
+<script>
+
+/* ═══════════════════════════════════════════
+   MÉMOS — Astuces mémorielles pour concepts clés
+   ═══════════════════════════════════════════ */
+const MEMOS = {
+  "Combien de couches possède le modèle OSI ?": "Pour mémoriser l'ordre, retiens : <b>Pour Le Réseau, Tout S'Passe Par Application</b> (Physique, Liaison, Réseau, Transport, Session, Présentation, Application).",
+  "Quelle est la couche 1 du modèle OSI ?": "Couche 1 = ce qu'on touche physiquement (les câbles).",
+  "Quelle est la couche 2 du modèle OSI ?": "Couche 2 = adresses MAC. Pense aux switches qui mémorisent les MAC.",
+  "Quelle est la couche 3 du modèle OSI ?": "Couche 3 = adresses IP. Les routeurs y travaillent.",
+  "Quelle est la couche 4 du modèle OSI ?": "Couche 4 = TCP/UDP. Pense 'ports'.",
+  "Quelle est la couche 7 du modèle OSI ?": "Couche 7 = ce que voit l'utilisateur (HTTP, mail, etc).",
+  "Quelle est la différence entre TCP et UDP ?": "TCP = <b>T</b>rès <b>C</b>ontrôlé et <b>P</b>récis. UDP = <b>U</b>ltra <b>D</b>irect <b>P</b>rio.",
+  "Quel port utilise DNS ?": "53 = nombre de cartes dans un jeu (DNS gère les 'cartes' des noms).",
+  "Quel port utilise HTTP ?": "80 = pas sécurisé. HTTPS = 443 = sécurisé.",
+  "Quel port utilise HTTPS ?": "443 = HTTPS. Astuce : 4+4+3 = 11, comme '11 verrous' sur ta porte sécurisée.",
+  "Quel port utilise SSH ?": "22 comme 2 jumeaux qui se parlent en secret (chiffré).",
+  "Quel port utilise SMTP ?": "25 = SMTP envoie. Mnémo : 'S<b>e</b>nd Mail à 25'.",
+  "Quel port utilise RDP ?": "3389 = RDP. Astuce : '3 + 389' (LDAP) car RDP utilise souvent l'AD.",
+  "Quel port utilise Kerberos ?": "88 = Kerberos. Pense 'infinity' (∞ = 8) car Kerberos donne un accès 'illimité' une fois authentifié.",
+  "Quel port utilise LDAP ?": "389 = LDAP. LDAPS sécurisé = 636.",
+  "Que signifie ITIL ?": "ITIL = <b>I</b>nformation <b>T</b>echnology <b>I</b>nfrastructure <b>L</b>ibrary. Le 'L' pour Library = bibliothèque de bonnes pratiques.",
+  "Quels sont les 3 niveaux de support ?": "N1 = simple, N2 = avancé, N3 = expert. Plus le numéro est haut, plus c'est complexe.",
+  "Qu'est-ce qu'une GPO ?": "GPO = <b>G</b>roup <b>P</b>olicy <b>O</b>bject. 'Group' car ça s'applique à un groupe d'utilisateurs/postes.",
+  "Que contient un bail DHCP ?": "Mémorise IMPD : <b>I</b>P, <b>M</b>asque, <b>P</b>asserelle, <b>D</b>NS.",
+  "Que signifient les droits 755 ?": "7 = rwx (4+2+1) = lecture+écriture+exécution. 5 = r-x (4+1). Dans 755 : propriétaire tout, autres lecture+exécution.",
+  "Combien d'hôtes dans un réseau /24 ?": "/24 = 8 bits hôtes = 2^8 - 2 = 254 hôtes (on enlève réseau et broadcast).",
+  "Combien d'hôtes dans un réseau /25 ?": "/25 = 7 bits hôtes = 2^7 - 2 = 126 hôtes.",
+  "Combien d'hôtes dans un réseau /26 ?": "/26 = 6 bits hôtes = 2^6 - 2 = 62 hôtes.",
+  "Combien d'hôtes dans un réseau /27 ?": "/27 = 5 bits hôtes = 2^5 - 2 = 30 hôtes.",
+  "Combien d'hôtes dans un réseau /28 ?": "/28 = 4 bits hôtes = 2^4 - 2 = 14 hôtes.",
+  "Combien d'hôtes dans un réseau /30 ?": "/30 = 2 bits hôtes = 2^2 - 2 = 2 hôtes. Très utilisé pour les liens entre routeurs.",
+  "Quelles sont les plages d'adresses IP privées ?": "Astuce : 10 / 172.16 / 192.168. Le '10' c'est facile, '172.16' contient un 16, '192.168' on l'utilise tous chez nous.",
+  "Qu'est-ce que le NAT ?": "NAT = <b>N</b>etwork <b>A</b>ddress <b>T</b>ranslation. Comme un traducteur entre deux langues (réseaux).",
+  "Qu'est-ce qu'un VLAN ?": "VLAN = <b>V</b>irtual <b>LAN</b>. Plusieurs réseaux dans un seul câble physique.",
+  "Quelle est la règle de sauvegarde 3-2-1 ?": "3 copies / 2 supports / 1 hors site. Triangle de protection : 3 copies + 2 supports + 1 distant.",
+  "Quels sont les 3 types de sauvegarde ?": "<b>C</b>omplète / <b>D</b>ifférentielle / <b>I</b>ncrémentale. Mnémo CDI (comme contrat).",
+  "Qu'est-ce que le RTO ?": "RTO = <b>T</b>ime = TEMPS de récupération. Combien de temps avant de revenir à la normale.",
+  "Qu'est-ce que le RPO ?": "RPO = <b>P</b>oint = POINT dans le temps. Combien de données on accepte de perdre.",
+  "Quelle différence entre PRA et PCA ?": "PRA = REPRISE (après coupure). PCA = CONTINUITÉ (pas de coupure). PCA est plus exigeant.",
+  "Qu'est-ce que le RAID 1 ?": "RAID 1 = miroir. Pense '1 jumeau' qui copie tout.",
+  "Qu'est-ce que le RAID 5 ?": "RAID 5 = parité distribuée sur 3+ disques. Tolère 1 panne.",
+  "Qu'est-ce que le RAID 6 ?": "RAID 6 = comme RAID 5 mais double parité. Tolère 2 pannes.",
+  "Qu'est-ce que le RAID 10 ?": "RAID 10 = miroir (1) + striping (0). Combine sécurité et vitesse.",
+  "Qu'est-ce que PXE ?": "PXE = <b>P</b>reboot e<b>X</b>ecution <b>E</b>nvironment. Démarrage par le réseau, sans disque local.",
+  "Qu'est-ce que MDT ?": "MDT = <b>M</b>icrosoft <b>D</b>eployment <b>T</b>oolkit. Boîte à outils pour automatiser les déploiements.",
+  "Qu'est-ce que WSUS ?": "WSUS = <b>W</b>indows <b>S</b>erver <b>U</b>pdate <b>S</b>ervices. Centralise les patchs Windows.",
+  "Qu'est-ce que le MFA ?": "MFA = <b>M</b>ulti-<b>F</b>actor <b>A</b>uthentication. Mot de passe + téléphone = 2 facteurs.",
+  "Quelle différence entre IDS et IPS ?": "IDS = <b>D</b>etection (alerte). IPS = <b>P</b>revention (bloque). IPS = IDS + action.",
+  "Qu'est-ce qu'un proxy ?": "Proxy = mandataire. Il fait les requêtes web à ta place.",
+  "Qu'est-ce qu'une DMZ ?": "DMZ = zone tampon. Comme une cour avant un château fort.",
+  "Quelle est la différence entre POP3 et IMAP ?": "POP3 = télécharge (PoP comme 'pop' = enlever). IMAP = synchronise (Internet Message Access Protocol).",
+  "Qu'est-ce que SNMP ?": "SNMP = <b>S</b>imple <b>N</b>etwork <b>M</b>anagement <b>P</b>rotocol. Pour superviser les équipements.",
+  "Qu'est-ce que la VoIP ?": "VoIP = <b>V</b>oice <b>o</b>ver <b>IP</b>. La voix passe par le réseau IP au lieu du téléphone classique.",
+  "Qu'est-ce que le protocole SIP ?": "SIP = <b>S</b>ession <b>I</b>nitiation <b>P</b>rotocol. Initie les appels VoIP. Port 5060.",
+  "Qu'est-ce qu'un IPBX ?": "IPBX = <b>IP</b> <b>P</b>rivate <b>B</b>ranch e<b>X</b>change. Le standard téléphonique en IP.",
+  "Qu'est-ce que le phishing ?": "Phishing = pêche en anglais. L'attaquant 'pêche' tes informations avec un appât (faux email).",
+  "Qu'est-ce qu'une attaque DDoS ?": "DDoS = <b>D</b>istributed <b>D</b>enial <b>o</b>f <b>S</b>ervice. Beaucoup de machines attaquent en même temps.",
+  "Quelle différence entre Cat5e et Cat6 ?": "Cat5e = 1 Gbit/s. Cat6 = jusqu'à 10 Gbit/s sur 55m. Plus le numéro est haut, plus c'est rapide.",
+  "Quelle différence entre fibre monomode et multimode ?": "Mono = 1 mode = un seul rayon = longue distance. Multi = plusieurs rayons = courte distance.",
+};
+
+const EXPLANATIONS = {
+  "Cite 3 logiciels de supervision": "Les principaux : Nagios (libre, historique), Zabbix (libre, complet), Centreon (libre, basé sur Nagios, interface web moderne — très utilisé en France), PRTG (propriétaire Allemand, freemium), Grafana (visualisation, souvent couplé avec Prometheus pour les métriques). Citer 2-3 outils + Centreon est très valorisé à l'examen.",
+  "Cite un logiciel IPBX libre": "Asterisk (#1 libre, créé en 1999, très puissant et flexible). Variantes plus user-friendly : FreePBX (interface web sur Asterisk), Issabel (anciennement Elastix). Alternative en version gratuite limitée : 3CX. Asterisk est utilisé dans des dizaines de milliers d'entreprises dans le monde, y compris des grandes.",
+  "Combien d'hôtes dans un réseau /16 ?": "/16 = 16 bits hôtes = 2^16 = 65 536, moins 2 (réseau et broadcast) = 65 534 hôtes. Énorme, utilisé sur des réseaux privés massifs (ex: 10.0.0.0/16). Risque : trop de broadcast, on segmente avec des VLAN. Classe B classique.",
+  "Combien d'hôtes dans un réseau /24 ?": "/24 = 8 bits hôtes restants = 2^8 = 256 adresses, mais on retire 2 (l'adresse réseau .0 et le broadcast .255) = 254 hôtes utilisables. C'est le masque le plus courant en LAN d'entreprise. Mémoriser cette formule (2^n - 2) est ESSENTIEL pour le TSSR.",
+  "Combien d'hôtes dans un réseau /25 ?": "/25 = 7 bits hôtes = 2^7 = 128 adresses, moins 2 (réseau et broadcast) = 126 hôtes utilisables. Masque associé : 255.255.255.128. Découpe d'un /24 en 2 sous-réseaux de 126 hôtes chacun. Cas typique : segmenter un réseau d'entreprise.",
+  "Combien d'hôtes dans un réseau /26 ?": "/26 = 6 bits hôtes = 2^6 = 64 adresses, moins 2 = 62 hôtes utilisables. Masque : 255.255.255.192. Découpe d'un /24 en 4 sous-réseaux de 62 hôtes. Pratique pour des bureaux ou départements de taille moyenne.",
+  "Combien d'hôtes dans un réseau /27 ?": "/27 = 5 bits hôtes = 2^5 = 32 adresses, moins 2 = 30 hôtes utilisables. Masque : 255.255.255.224. Découpe d'un /24 en 8 sous-réseaux de 30 hôtes. Utile pour les petites équipes ou DMZ.",
+  "Combien d'hôtes dans un réseau /28 ?": "/28 = 4 bits hôtes = 2^4 = 16 adresses, moins 2 = 14 hôtes utilisables. Masque : 255.255.255.240. Bon pour des petits sous-réseaux dédiés (DMZ, lien dédié, petite équipe).",
+  "Combien d'hôtes dans un réseau /30 ?": "/30 = 2 bits hôtes = 2^2 = 4 adresses, moins 2 = 2 hôtes utilisables. Masque : 255.255.255.252. UTILISATION TYPIQUE : liens point-à-point entre routeurs (juste 2 IP nécessaires). Économise drastiquement les adresses IP.",
+  "Combien de couches possède le modèle OSI ?": "Le modèle OSI (Open Systems Interconnection) est un cadre théorique standardisé par l'ISO en 1984 qui décompose les communications réseau en 7 couches indépendantes. Chaque couche a une fonction précise et communique avec sa voisine, ce qui permet l'interopérabilité entre constructeurs. C'est le concept fondamental qu'un TSSR doit maîtriser pour diagnostiquer un problème (réseau ? câble ? application ?).",
+  "Comment changer le propriétaire d'un fichier ?": "chown utilisateur:groupe fichier (change owner). Ex : chown www-data:www-data /var/www/site (pour qu'Apache puisse lire). Doit être exécuté en root (sudo). Récursif avec -R : chown -R user:group dossier/. Couplé avec chmod, c'est la base de la sécurité Linux.",
+  "Comment changer les droits d'un fichier sous Linux ?": "chmod (change mode) permet de modifier les droits. Notation octale : chmod 755 fichier.sh (rwx pour propriétaire, r-x pour groupe et autres). Notation symbolique : chmod u+x fichier (ajouter exécution au propriétaire). Le 'x' est indispensable pour exécuter un script.",
+  "Comment créer un utilisateur AD en PowerShell ?": "New-ADUser -Name \"Jean\" -SamAccountName \"jean\" -Enabled $true. Module requis : Active Directory (présent sur les DC ou via RSAT). Permet d'automatiser la création de comptes en masse depuis un CSV. Préférable à la GUI Active Directory Users & Computers pour les opérations répétitives.",
+  "Comment dit-on \"chiffrement\" en anglais ?": "Encryption. Verbe : to encrypt. Inverse : decryption / to decrypt. Attention : ne pas confondre avec 'cryptage' qui n'existe pas en français normatif (préférer chiffrement). End-to-end encryption = chiffrement de bout en bout.",
+  "Comment dit-on \"commutateur\" en anglais ?": "Switch. Le mot anglais s'est imposé en français aussi — on dit rarement 'commutateur' au quotidien. Switch travaille en couche 2 (MAC). Dérivé : 'switching' = commutation.",
+  "Comment dit-on \"dépanner\" en anglais ?": "To troubleshoot. 'Trouble' = problème + 'shoot' = tirer. Littéralement : 'tirer sur le problème'. Dérivés : troubleshooting (le dépannage), troubleshooter (l'outil ou la personne qui dépanne).",
+  "Comment dit-on \"déploiement\" en anglais ?": "Deployment. Verbe : to deploy. Très utilisé dans le contexte IT : software deployment, OS deployment, deployment pipeline. Le terme évoque l'idée de 'déplier' une solution sur plusieurs machines.",
+  "Comment dit-on \"journaux d'événements\" en anglais ?": "Event logs. 'Logs' (au pluriel) = journaux d'événements en informatique. To log = enregistrer dans un journal. Logging = action de journaliser. À ne pas confondre avec 'login' (connexion).",
+  "Comment dit-on \"mise à jour\" en anglais ?": "Update (mineure, correctifs) ≠ Upgrade (majeure, nouvelle version). Update Windows 11 22H2 → 23H2 = upgrade. Patch Tuesday = update. Bien faire la distinction au boulot, surtout pour planifier les downtimes.",
+  "Comment dit-on \"mot de passe\" en anglais ?": "Password. Mot de passe au sens littéral. Dérivés à connaître : password policy (politique de MdP), password reset (réinitialisation), password manager (gestionnaire), strong password (mot de passe fort).",
+  "Comment dit-on \"pare-feu\" en anglais ?": "Firewall, littéralement 'mur de feu' (fire = feu, wall = mur). Le terme français 'pare-feu' est une traduction directe. Dans toute la doc technique, tu rencontreras toujours 'firewall' : Windows Firewall, firewall rules, firewall policy.",
+  "Comment dit-on \"restauration\" en anglais ?": "Restore. Verbe et nom. Restoration existe aussi mais 'restore' est le terme technique standard : restore from backup, point-in-time restore, bare-metal restore. Souvent associé à 'recovery'.",
+  "Comment dit-on \"routeur\" en anglais ?": "Router. La prononciation anglaise est 'roo-ter' (US) ou 'rao-ter' (UK). Dérivés : routing (routage), routed protocol, default route. Travaille en couche 3 (IP).",
+  "Comment dit-on \"réseau\" en anglais ?": "Network. Mot incontournable : tu le verras partout dans la doc IT. Astuce : 'work' (travail) + 'net' (filet) = travail en filet, en équipe d'éléments interconnectés. Dérivés : networking, networked, subnet (sous-réseau).",
+  "Comment dit-on \"sauvegarde\" en anglais ?": "Backup (un seul mot). 'Back up' (deux mots) = verbe (faire la sauvegarde). 'Backup' (un mot) = nom (la sauvegarde). 'Restore' = restaurer. Dérivés : full backup, incremental backup, backup policy.",
+  "Comment dit-on \"serveur\" en anglais ?": "Server. Verbe associé : to serve. File server, web server, mail server, database server. Le suffixe -er indique 'celui qui fait l'action' : ce qui sert.",
+  "Comment dit-on \"surveiller\" en anglais ?": "To monitor. Verbe et le sujet 'monitor' = écran (un autre sens). Monitoring = la surveillance. Network monitoring, performance monitoring, monitoring tools (Nagios, Zabbix...).",
+  "Comment installer un paquet sous Debian/Ubuntu ?": "sudo apt install nom_du_paquet (anciennement apt-get install). Toujours faire sudo apt update AVANT pour rafraîchir l'index des paquets. Sur RedHat/CentOS/Rocky : dnf install ou yum install. Sur Arch : pacman -S. Connaître ces 3 gestionnaires est attendu d'un TSSR.",
+  "Comment lister les fichiers en PowerShell ?": "Get-ChildItem (alias : ls, dir, gci). Renvoie des objets, pas du texte → tu peux directement faire Get-ChildItem | Where-Object {$_.Length -gt 1MB} pour filtrer les gros fichiers. C'est ça la puissance de PowerShell : les pipes manipulent des objets typés.",
+  "Comment monter un partage SMB/CIFS sous Linux ?": "mount -t cifs //serveur/partage /mnt/point -o username=user,password=pwd. Pour persistance, ajouter dans /etc/fstab. Préférer les credentials dans un fichier protégé (-o credentials=/etc/cifs.cred). Paquet requis : cifs-utils. Très utile pour accéder aux serveurs Windows depuis Linux.",
+  "Comment planifier une tâche sous Windows (CLI) ?": "schtasks /create /tn \"NomTache\" /tr \"commande\" /sc daily /st 08:00. Permet de scripter la création de tâches sans passer par la GUI. Très utile dans les scripts de déploiement de masse. Alternative moderne et plus puissante : New-ScheduledTask en PowerShell.",
+  "Comment planifier une tâche sous Windows (GUI) ?": "Le Planificateur de tâches : taskschd.msc (ou Outils d'administration > Planificateur de tâches). Permet de créer des tâches déclenchées par : heure, événement, démarrage, login, etc. Plus puissant que cron sur certains aspects (déclencheurs événementiels). Utilisé pour scripts admin, sauvegardes, maintenance.",
+  "Comment redémarrer un serveur à distance en PowerShell ?": "Restart-Computer -ComputerName \"NomServeur\" -Force. Pré-requis : WinRM activé sur la cible (Enable-PSRemoting), droits admin, firewall qui laisse passer. -Force ferme les sessions ouvertes. Très utile en script pour redémarrer plusieurs serveurs après un patch Tuesday.",
+  "Comment redémarrer un service sous Linux (systemd) ?": "sudo systemctl restart nom_du_service (ex: sudo systemctl restart apache2). systemd est l'init system standard sur Debian/Ubuntu/CentOS modernes. Autres commandes : start, stop, status, enable (au boot), disable. Anciens systèmes : service nom_du_service restart.",
+  "Comment rendre un script exécutable sous Linux ?": "chmod +x script.sh ajoute le droit d'exécution. Sans ça, tu auras 'Permission denied'. Pour l'exécuter ensuite : ./script.sh (le ./ indique le répertoire courant). Astuce : utiliser chmod 755 script.sh pour donner exécution à tout le monde proprement.",
+  "Comment tuer un processus par son PID ?": "kill PID envoie le signal SIGTERM (15) qui demande gentiment l'arrêt. Si ça ne suffit pas : kill -9 PID envoie SIGKILL qui tue immédiatement (mais peut laisser des fichiers corrompus). Astuce : pkill nom_processus (par nom au lieu de PID).",
+  "Comment vider le cache DNS sous Windows ?": "ipconfig /flushdns vide le cache DNS local (Windows met en cache les résolutions pour aller plus vite). Utile quand un serveur a changé d'IP et que ton PC répond avec l'ancienne. Sur Linux moderne : sudo systemd-resolve --flush-caches ou redémarrer nscd/dnsmasq selon la distro.",
+  "Comment voir les logs en temps réel sous Linux ?": "tail -f /var/log/syslog (suivre l'écriture en direct). Pour les services systemd modernes : journalctl -fu nom_service. Idéal pour observer ce qui se passe pendant un test ou diagnostiquer un problème en direct. Ctrl+C pour quitter.",
+  "Comment vérifier la connectivité réseau en PowerShell ?": "Test-NetConnection -ComputerName google.com -Port 443. Plus puissant que ping car teste un PORT précis (pas juste ICMP) — utile quand un firewall bloque ICMP mais laisse HTTPS. Renvoie un objet avec TcpTestSucceeded, latence, etc. À mémoriser ABSOLUMENT.",
+  "Comment vérifier le statut d'un service ?": "sudo systemctl status nom_du_service affiche : état (active/inactive/failed), PID, dernières lignes de logs. Indispensable pour diagnostiquer un service qui ne démarre pas. Pour voir les logs complets : journalctl -u nom_du_service.",
+  "Comment écrire une boucle for en Bash ?": "Syntaxe : for i in 1 2 3; do echo $i; done. La structure est for VAR in LISTE; do COMMANDES; done. Variantes : for f in *.txt (parcourir les fichiers), for i in {1..10} (range), while [ condition ]; do ... done (tant que). Indispensable pour automatiser des actions répétées.",
+  "Comment écrire une condition if en Bash ?": "if [ condition ]; then commande; fi. Attention aux ESPACES autour des crochets. Exemples : if [ -f fichier ] (existe ?), if [ \"$x\" = \"oui\" ] (égalité). Avec else : if ...; then ...; else ...; fi. Avec elif : if ...; then ...; elif ...; then ...; else ...; fi.",
+  "Où crée-t-on les GPO ?": "Dans la console GPMC (Group Policy Management Console), accessible via gpmc.msc ou Server Manager > Tools > Group Policy Management. C'est un MMC (Microsoft Management Console). Les GPO peuvent être liées à un Site, un Domaine ou une OU, avec un ordre de priorité (LSDOU : Local, Site, Domain, OU).",
+  "Qu'est-ce qu'ITIL ?": "ITIL (IT Infrastructure Library) est le référentiel mondial des bonnes pratiques de gestion des services informatiques. Il définit le vocabulaire (incident, problème, changement) et les processus (gestion des incidents, des changements, etc.). Connaître ITIL est un vrai plus pour communiquer avec les équipes IT.",
+  "Qu'est-ce qu'un DEEE ?": "Déchet d'Équipement Électrique et Électronique : vieux PC, écrans, imprimantes, smartphones... Ils contiennent des métaux rares ET toxiques. RÉGLEMENTATION OBLIGATOIRE en Europe : ils DOIVENT être collectés via des filières agréées (Ecologic, Ecosystem en France). Pas le droit de les jeter à la poubelle classique. Question de droit, pas juste d'écologie.",
+  "Qu'est-ce qu'un EDR ?": "Endpoint Detection and Response : antivirus 'next-gen' qui surveille en permanence le comportement du poste (fichiers, processus, réseau, registre) pour détecter des activités suspectes même inconnues. Plus puissant qu'un antivirus classique. Exemples : CrowdStrike, SentinelOne, Microsoft Defender for Endpoint.",
+  "Qu'est-ce qu'un IPBX ?": "IP Private Branch eXchange : autocommutateur téléphonique en IP — l'équivalent moderne du PABX. Gère les appels internes/externes, transferts, files d'attente, messagerie vocale, conférences. Solutions : Asterisk (libre, le plus populaire), 3CX, FreePBX (basé sur Asterisk), Cisco CallManager. Au coeur de la téléphonie moderne d'entreprise.",
+  "Qu'est-ce qu'un MDM ?": "Mobile Device Management : solution pour gérer à distance les smartphones, tablettes, parfois PC. Permet : configuration auto, déploiement d'apps, sécurisation (chiffrement, code PIN forcé), effacement à distance en cas de vol. Solutions : Microsoft Intune, VMware Workspace ONE, MobileIron. Critique pour la sécurité BYOD.",
+  "Qu'est-ce qu'un OID en SNMP ?": "Object IDentifier : identifiant unique d'une métrique en SNMP, sous forme arborescente (ex: 1.3.6.1.2.1.1.5.0 = nom de l'équipement). Comme un chemin de fichier mais pour des données. Les MIB (Management Information Base) sont des fichiers qui décrivent ces OID en termes lisibles. Tu fais un 'snmpget' avec un OID pour récupérer une valeur.",
+  "Qu'est-ce qu'un PCA ?": "Plan de Continuité d'Activité : MAINTENIR l'activité PENDANT le sinistre, sans interruption (ou très courte). Beaucoup plus exigeant et coûteux que le PRA. Implique : sites de secours actifs, réplication continue, basculement automatique. Pour les services critiques (banque, hôpital, e-commerce).",
+  "Qu'est-ce qu'un PRA ?": "Plan de Reprise d'Activité : ensemble de procédures pour REPRENDRE l'activité après un sinistre majeur (incendie, inondation, ransomware). On accepte une COUPURE temporaire (RTO de plusieurs heures à plusieurs jours). Documentation détaillée : qui contacter, comment restaurer, où. Doit être TESTÉ régulièrement (sinon c'est juste du papier).",
+  "Qu'est-ce qu'un SI ?": "SI = Système d'Information : tout l'écosystème informatique d'une organisation (matériel, logiciels, données, réseaux, utilisateurs, procédures). En tant que TSSR, tu en es un des piliers techniques. Comprendre le SI dans sa globalité aide à prioriser les incidents (un serveur de paye en panne = bien plus critique qu'un poste).",
+  "Qu'est-ce qu'un SLA ?": "SLA (Service Level Agreement) = contrat qui engage le prestataire sur des délais : par exemple 'panne critique = intervention en 4h, résolution en 8h'. C'est la base de la relation client/prestataire. Souvent assorti de pénalités si non respecté. À distinguer du SLO (objectif interne) et SLI (indicateur mesuré).",
+  "Qu'est-ce qu'un VLAN ?": "Virtual LAN : segmentation logique d'un réseau physique. Plusieurs VLAN sur un même switch = plusieurs réseaux étanches. Avantages : sécurité (les services RH ne voient pas le commercial), réduction du broadcast, organisation logique sans recâbler. Standard 802.1Q. Indispensable en entreprise dès quelques dizaines de postes.",
+  "Qu'est-ce qu'un VPN ?": "Virtual Private Network : tunnel chiffré qui traverse un réseau public (Internet) en simulant une connexion privée. Confidentialité (chiffrement) + intégrité (pas modifié) + authentification. Protocoles : IPsec, OpenVPN, WireGuard (moderne), L2TP/IPsec, SSTP. Utilisé par 99% des télétravailleurs.",
+  "Qu'est-ce qu'un alias de messagerie ?": "Adresse email SUPPLÉMENTAIRE qui redirige vers la boîte principale. Exemple : contact@societe.com et info@societe.com pointent vers admin@societe.com. Permet de regrouper, de protéger l'adresse réelle, de créer des adresses fonctionnelles. Différent d'une boîte mail dédiée (qui a son propre stockage).",
+  "Qu'est-ce qu'un certificat SSL/TLS ?": "Document numérique qui : 1) authentifie l'identité d'un site (signé par une autorité de confiance comme Let's Encrypt, DigiCert), 2) contient la clé publique pour démarrer le chiffrement TLS. C'est lui qui produit le cadenas dans le navigateur. Toujours vérifier la validité, le nom, l'autorité émettrice. Free aujourd'hui via Let's Encrypt.",
+  "Qu'est-ce qu'un cluster ?": "Groupe de serveurs qui collaborent comme une seule entité logique. Deux objectifs principaux : HA (si un nœud tombe, un autre prend le relais sans interruption) ou répartition de charge (load balancing). Exemples : cluster Hyper-V, cluster Failover Windows, Kubernetes (cluster de conteneurs).",
+  "Qu'est-ce qu'un conteneur (Docker) ?": "Application packagée avec ses dépendances dans un format léger qui partage le noyau de l'OS hôte. Beaucoup plus léger qu'une VM (pas de noyau dédié) : démarre en secondes, consomme peu de RAM. Standard de fait : Docker. Orchestration : Kubernetes. Idéal pour les microservices et la CI/CD.",
+  "Qu'est-ce qu'un contrôleur de domaine (DC) ?": "Un DC est un serveur Windows qui héberge l'AD et authentifie les utilisateurs/machines du domaine. Bonne pratique : toujours au moins 2 DC pour la redondance (en cas de panne, l'autre prend le relais). On promeut un serveur en DC via Server Manager > Add Roles > AD DS, puis dcpromo (ancien) ou Promote this server.",
+  "Qu'est-ce qu'un câble RJ45 ?": "Connecteur standard pour câbles réseau Ethernet : 8 broches, format rectangulaire avec un clip. Catégories : Cat5e (1 Gbit/s), Cat6 (10 Gbit/s sur 55m), Cat6a (10 Gbit/s sur 100m), Cat7/Cat8 (au-delà). Le sertissage se fait avec une pince à sertir et suit un code couleur (T568A ou T568B).",
+  "Qu'est-ce qu'un câble droit vs croisé ?": "DROIT : pour relier 2 équipements DIFFÉRENTS (PC ↔ switch, switch ↔ routeur). C'est le câble standard. CROISÉ : pour relier 2 équipements IDENTIQUES (PC ↔ PC, switch ↔ switch sur ports non auto-MDIX). Aujourd'hui devenu rare car les ports modernes sont 'auto-MDIX' (détection automatique). Mais à connaître pour le TSSR.",
+  "Qu'est-ce qu'un enregistrement MX ?": "Enregistrement DNS qui indique QUEL serveur gère les emails pour un domaine. MX = Mail eXchanger. Quand un mail est envoyé à user@domaine.fr, le serveur source interroge le DNS pour le MX du domaine.fr et envoie le mail à ce serveur. On peut avoir plusieurs MX avec des priorités (le plus bas = prioritaire).",
+  "Qu'est-ce qu'un fichier de réponses (Unattend.xml) ?": "Fichier XML qui automatise les réponses aux questions pendant l'installation Windows : nom de la machine, mot de passe admin, langue, partitionnement, jonction au domaine, etc. Évite l'intervention manuelle pendant le setup. Généré avec Windows System Image Manager (WSIM). Au cœur du déploiement automatisé.",
+  "Qu'est-ce qu'un firewall (pare-feu) ?": "Dispositif (matériel ou logiciel) qui filtre le trafic réseau entrant et sortant selon des règles. Travaille principalement en couches 3 et 4 (IP et ports). Premier rempart contre les intrusions. Tous les OS modernes en intègrent un (Windows Firewall, iptables/firewalld sous Linux). En entreprise : équipements dédiés (Stormshield, Fortinet, Sophos, pfSense).",
+  "Qu'est-ce qu'un handshake TCP en 3 temps ?": "Pour établir une connexion fiable, TCP fait 3 échanges : SYN (client demande à se connecter), SYN-ACK (serveur accepte et confirme), ACK (client confirme). C'est seulement après ces 3 messages que les données peuvent circuler. Beaucoup d'attaques (SYN flood) exploitent cette mécanique.",
+  "Qu'est-ce qu'un hyperviseur ?": "Logiciel qui crée et gère des VM (Virtual Machines) sur un serveur physique. Il distribue les ressources (CPU, RAM, disque, réseau) entre les VMs. Sans hyperviseur, pas de virtualisation. Permet de mutualiser des dizaines de VMs sur un seul serveur physique → économie énorme en datacenter.",
+  "Qu'est-ce qu'un masque de sous-réseau ?": "Le masque sépare la partie réseau (les bits à 1 du masque) de la partie hôte (les bits à 0). Ex : 255.255.255.0 = /24 = 24 bits réseau + 8 bits hôte = 254 hôtes possibles. Sans masque, impossible de savoir si une IP est dans MON réseau ou un autre — donc impossible de router.",
+  "Qu'est-ce qu'un panneau de brassage (patch panel) ?": "Panneau passif avec des ports RJ45 montés en rack qui centralise les arrivées des câbles muraux. On 'brassse' (avec des cordons RJ45 courts) le port mural au switch correspondant. Avantages : organisation, modularité (changer un brassage sans recâbler), protection des câbles longs. Standard en câblage structuré.",
+  "Qu'est-ce qu'un profil itinérant ?": "Roaming Profile : profil utilisateur (bureau, documents, configs) stocké sur un serveur central et synchronisé à chaque ouverture/fermeture de session. L'utilisateur retrouve son environnement depuis n'importe quel poste du domaine. Peut être lent au login si le profil est gros — l'alternative moderne est Folder Redirection + UE-V/FSLogix.",
+  "Qu'est-ce qu'un proxy ?": "Serveur intermédiaire qui relaie les requêtes web. Côté client (proxy direct) : cache l'IP des utilisateurs, filtre les sites, met en cache pour économiser la bande passante. Côté serveur (reverse proxy : Nginx, HAProxy) : protège les serveurs derrière, répartit la charge, gère le SSL. Standard en entreprise.",
+  "Qu'est-ce qu'un relais SMTP ?": "Serveur SMTP qui RECOIT les mails et les TRANSMET vers leur destination (autre serveur SMTP). Utilisé par : applications qui doivent envoyer des notifications (sans avoir leur propre serveur), imprimantes multifonctions, scanners-vers-mail. Toujours sécuriser les relais (sinon spam open relay → blacklisté en quelques heures).",
+  "Qu'est-ce qu'un script Bash ?": "Programme texte qui automatise des tâches sous Linux. Première ligne (shebang) : #!/bin/bash indique au système quel interpréteur utiliser. Extension habituelle : .sh. Permet d'enchaîner des commandes, faire des conditions, des boucles. Outil quotidien de l'admin Linux pour automatiser sauvegardes, déploiements, contrôles.",
+  "Qu'est-ce qu'un script PowerShell ?": "Le langage de script Microsoft moderne (extension .ps1), basé sur le framework .NET donc orienté OBJET (pas juste du texte comme Bash). Les commandes s'appellent des cmdlets : Get-Process, Set-Service, etc. Très puissant pour administrer Windows et Active Directory. Présent par défaut sur Windows depuis Win7.",
+  "Qu'est-ce qu'un serveur LAMP ?": "L = Linux (OS), A = Apache (serveur web), M = MySQL/MariaDB (base de données), P = PHP (langage). Pile open-source historique qui héberge la majorité des sites web. Variante WAMP (Windows), MAMP (Mac), LEMP (Nginx au lieu d'Apache). Toujours d'actualité même si concurrencé par Node.js et Python.",
+  "Qu'est-ce qu'un seuil d'alerte ?": "Valeur LIMITE configurée dans l'outil de supervision : au-dessus, une alerte est déclenchée. Exemple : CPU > 80%, disque > 90%, latence > 100ms. Distinction WARNING (à surveiller) vs CRITICAL (à intervenir d'urgence). Bien calibrer les seuils est un ART : trop bas = bruit (alarme fatigue), trop haut = on rate des problèmes.",
+  "Qu'est-ce qu'un snapshot ?": "Photo instantanée de l'état d'une VM (mémoire + disque + config) à un moment T. Permet de revenir en arrière en cas de problème. PARFAIT avant une mise à jour risquée. ATTENTION : un snapshot N'EST PAS une sauvegarde — il dépend du fichier disque original. Et plus on accumule, plus ça ralentit la VM.",
+  "Qu'est-ce qu'un tableau de bord de supervision ?": "Interface graphique (souvent web) qui présente VISUELLEMENT les indicateurs clés en temps réel : graphiques, jauges, alertes, statuts. Doit être lisible en un coup d'œil (codes couleur vert/orange/rouge). Outils : Grafana (le plus populaire), Centreon, Kibana. Affiché souvent sur un grand écran dans la salle des admins.",
+  "Qu'est-ce qu'un ticket d'incident ?": "Un ticket est l'unité de base du support : il trace tout, de la première remontée jusqu'à la résolution. Il contient le demandeur, la date, la description, la priorité, l'historique des actions, et qui a résolu. Outils typiques : GLPI, ServiceNow, Jira. Un bon ticket = un suivi clair et un capital de connaissance pour la suite.",
+  "Qu'est-ce qu'un trunk (802.1Q) ?": "Lien entre 2 switches (ou switch ↔ routeur) qui transporte PLUSIEURS VLANs. Chaque trame est étiquetée (tag 802.1Q) avec son numéro de VLAN. Sans trunk, il faudrait un câble par VLAN entre les switches. Configuration côté Cisco : switchport mode trunk.",
+  "Qu'est-ce qu'une ACL (Access Control List) ?": "Liste ordonnée de règles 'autoriser/refuser' sur un routeur ou switch. Critères : IP source, IP destination, ports, protocole. Permet de filtrer FINEMENT le trafic entre VLANs ou aux frontières. Cisco standard : 'access-list 10 permit 192.168.1.0 0.0.0.255'. La première règle qui matche s'applique.",
+  "Qu'est-ce qu'une DMZ ?": "Zone DéMilitarisée : sous-réseau tampon entre Internet et le réseau interne. On y place les serveurs accessibles depuis Internet (web, mail, DNS public). Si un attaquant compromet un serveur en DMZ, il n'a PAS d'accès direct au LAN interne (un firewall sépare DMZ et LAN). Architecture classique : 3 zones — Internet | DMZ | LAN.",
+  "Qu'est-ce qu'une GPO ?": "Group Policy Object = règle de configuration appliquée automatiquement aux utilisateurs/postes du domaine. Exemples : politique de mot de passe, lecteur réseau monté, fond d'écran imposé, désactivation USB, mise à jour Windows forcée. C'est l'outil de standardisation #1 pour piloter des centaines de postes sans intervention manuelle.",
+  "Qu'est-ce qu'une OU (Organizational Unit) ?": "Une OU = conteneur logique dans l'AD pour organiser les objets (utilisateurs, groupes, ordinateurs) selon ta structure (par service, site, fonction). Permet d'appliquer des GPO ciblées et de déléguer l'admin (ex: les RH gèrent leur propre OU). C'est le seul conteneur sur lequel on peut appliquer des GPO (les CN par défaut, non).",
+  "Qu'est-ce qu'une adresse IP ?": "L'identifiant logique unique d'un appareil sur un réseau (couche 3 du modèle OSI). IPv4 = 32 bits, écrite en 4 octets décimaux (ex: 192.168.1.1). IPv6 = 128 bits (face à la pénurie d'IPv4). C'est l'adresse postale virtuelle de chaque machine — sans IP, pas de communication réseau.",
+  "Qu'est-ce qu'une attaque DDoS ?": "Distributed Denial of Service : des milliers de machines (botnet) inondent simultanément le serveur de requêtes pour le saturer. Pas de vol de données, juste indisponibilité. Parades : services anti-DDoS (Cloudflare, OVH), filtrage en amont, bande passante surdimensionnée.",
+  "Qu'est-ce qu'une attaque Man-in-the-Middle ?": "L'attaquant s'intercale entre 2 parties (toi ↔ serveur) pour lire ou modifier les échanges. Très efficace sur Wi-Fi public non chiffré. Parades : HTTPS partout (chiffrement de bout en bout), VPN sur réseaux non sûrs, vérifier les certificats, HSTS pour forcer HTTPS.",
+  "Qu'est-ce qu'une attaque brute force ?": "Tester systématiquement toutes les combinaisons jusqu'à trouver le bon mot de passe. Les attaquants utilisent des dictionnaires (mots courants) et des accélérateurs (GPU). Parades : verrouillage après N tentatives, mots de passe longs (>12 caractères), MFA obligatoire, fail2ban (Linux) ou Account Lockout Policy (Windows).",
+  "Qu'est-ce qu'une baie de brassage ?": "Armoire technique (rack) standardisée (largeur 19 pouces) qui regroupe les équipements réseau : switches, patch panels, routeurs, parfois serveurs. Hauteur en U (1U = 4,4 cm). Permet l'organisation, le refroidissement, l'accès facile. Au coeur de chaque local technique en entreprise.",
+  "Qu'est-ce qu'une escalade ?": "Quand le N1 ne peut pas résoudre dans son périmètre/temps imparti, il escalade vers N2 (techniques avancés) puis N3 (experts/éditeur). L'escalade doit être documentée (qu'est-ce qui a été tenté, résultats) pour ne pas faire répéter l'utilisateur. Une bonne escalade = un ticket complet, pas un 'à toi de jouer'.",
+  "Qu'est-ce qu'une forêt Active Directory ?": "Le sommet de la hiérarchie AD. Une forêt contient un ou plusieurs domaines qui partagent le même schéma (structure de la base) et catalogue global. Frontière de sécurité ultime : sortir d'une forêt = changer d'identité. Les grandes entreprises ont parfois plusieurs forêts pour isoler des entités.",
+  "Qu'est-ce qu'une image master ?": "Image système de référence ('Gold Image') contenant : OS + tous les drivers + tous les logiciels standards de l'entreprise. Utilisée pour cloner des dizaines/centaines de postes identiques. Mise à jour régulièrement (drivers, patchs). Avant capture : on lance Sysprep pour 'généraliser' (supprimer SID et infos uniques).",
+  "Qu'est-ce qu'une passerelle par défaut ?": "Default gateway : l'adresse IP du routeur que les postes utilisent pour sortir vers d'autres réseaux. Sur ta box, c'est typiquement 192.168.1.1 ou .254. Sans passerelle, les hôtes ne peuvent communiquer qu'à l'intérieur de leur sous-réseau. C'est LA porte de sortie.",
+  "Qu'est-ce qu'une route par défaut ?": "Route 0.0.0.0/0 : si aucune route spécifique ne correspond, tout le trafic est envoyé vers cette destination (typiquement la passerelle Internet). C'est la 'route fourre-tout'. Sur les postes : c'est l'adresse de la box. Sur un routeur : c'est vers le routeur du FAI.",
+  "Qu'est-ce qu'une réservation DHCP ?": "Forcer une IP donnée à toujours être attribuée à une machine spécifique en se basant sur son adresse MAC. Utile pour : imprimantes, serveurs, NAS — tout ce qui doit avoir une IP stable mais reste géré par DHCP (plus simple qu'une IP statique manuelle, et tu peux changer la config DNS depuis le serveur).",
+  "Qu'est-ce qu'une trap SNMP ?": "Alerte ASYNCHRONE envoyée SPONTANÉMENT par un équipement vers le serveur de supervision (port UDP 162) quand un événement précis se produit (panne d'interface, seuil dépassé, redémarrage). Plus réactif que le polling. Configurer les traps sur les switches/firewalls pour avoir une supervision en temps réel.",
+  "Qu'est-ce qu'une tâche Cron ?": "Planificateur de tâches sous Linux. Configuration via crontab -e (édite le crontab de l'utilisateur courant). Format : 5 champs (min heure jour mois jour-semaine) + commande. Logs dans /var/log/syslog ou /var/log/cron selon la distro. Toujours utiliser des chemins absolus dans les commandes !",
+  "Qu'est-ce qu'une variable en Bash ?": "Stocke une valeur. Déclaration : NOM=\"valeur\" (PAS d'espace autour du =, sinon erreur !). Utilisation : $NOM ou ${NOM} (la version avec accolades évite les ambiguïtés). Exemple : NOM=Jean ; echo \"Bonjour $NOM\". Variables d'env : export NOM (visible par les sous-processus).",
+  "Qu'est-ce qu'une zone DNS de recherche directe ?": "Forward Lookup Zone : nom → IP (le cas standard). Tu tapes www.exemple.fr, le DNS retourne 93.184.216.34. Enregistrements : A (IPv4), AAAA (IPv6), CNAME (alias), MX (mail), NS (serveur DNS de la zone). C'est ce qu'on utilise 99% du temps.",
+  "Qu'est-ce qu'une zone DNS de recherche inversée ?": "Reverse Lookup Zone : IP → nom (l'inverse). Utilise des enregistrements PTR. Sert pour les logs (afficher des noms au lieu d'IP), la sécurité antispam, et les outils de diagnostic. Souvent oubliée mais utile en entreprise.",
+  "Qu'est-ce que ADDS ?": "Active Directory Domain Services : le rôle Windows Server qui fournit l'annuaire complet (utilisateurs, groupes, ordinateurs, GPO, authentification Kerberos). C'est le rôle qu'on installe pour transformer un Windows Server en contrôleur de domaine. À distinguer de AD LDS (Lightweight, sans domaine).",
+  "Qu'est-ce que GLPI ?": "GLPI (Gestionnaire Libre de Parc Informatique) est l'outil open-source #1 en France pour gérer un service IT. Il combine helpdesk (tickets) et inventaire matériel/logiciel (souvent via OCS Inventory ou son agent FusionInventory). Gratuit, modulaire (plugins), interface web. Largement attendu en entreprise française.",
+  "Qu'est-ce que IaaS ?": "Infrastructure as a Service : tu loues le matériel virtuel (CPU, RAM, disque, réseau), tu gères TOUT le reste (OS, middleware, application). Exemple : AWS EC2, Azure Virtual Machines, OVH. Maximum de flexibilité mais maximum de gestion. Pour quand tu as des besoins atypiques ou un OS spécifique.",
+  "Qu'est-ce que MDT ?": "Microsoft Deployment Toolkit : outil GRATUIT de Microsoft pour automatiser les déploiements Windows. Permet de créer des séquences de tâches (Task Sequence) qui orchestrent : install OS + drivers + apps + config. Utilise WDS/PXE pour le déploiement réseau. Plus puissant que WDS seul. Alternative pro : SCCM/MEM.",
+  "Qu'est-ce que Microsoft Exchange ?": "Serveur de messagerie d'entreprise Microsoft : gère emails, calendriers, contacts, salles de réunion, ressources partagées. Versions on-premise (à installer chez soi) ou Online (cloud, dans Microsoft 365). Le standard de fait dans 80% des entreprises moyennes/grandes. Couplé étroitement avec Outlook et Active Directory.",
+  "Qu'est-ce que PXE ?": "Preboot eXecution Environment : permet à un PC sans OS de démarrer via le RÉSEAU pour télécharger et installer un système. La carte réseau a un firmware qui demande une IP DHCP, télécharge un bootloader (TFTP), puis l'image OS. Indispensable pour déployer des dizaines/centaines de PC. Sous Windows : couplé avec WDS et MDT.",
+  "Qu'est-ce que PaaS ?": "Platform as a Service : le fournisseur gère matériel + OS + middleware (base de données, runtime), TU déploies juste ton application. Exemples : Azure App Service, Heroku, Google App Engine. Idéal pour les développeurs : pas de patch OS à gérer, focus sur le code.",
+  "Qu'est-ce que SNMP ?": "Simple Network Management Protocol : protocole STANDARD pour superviser les équipements réseau. Le serveur de supervision INTERROGE (poll) les équipements (port UDP 161) qui répondent avec leurs métriques. Versions : SNMPv1 et v2 (en clair, à éviter), SNMPv3 (chiffré, recommandé). Tous les équipements pro le supportent.",
+  "Qu'est-ce que SSH ?": "Secure Shell : protocole de connexion à distance chiffrée (port 22). Remplaçant indispensable de Telnet (qui était en clair). Permet de prendre la main sur un serveur Linux/Unix, exécuter des commandes, transférer des fichiers (scp, sftp), faire des tunnels. Au cœur du métier d'admin Linux.",
+  "Qu'est-ce que SaaS ?": "Software as a Service : TOUT est géré par le fournisseur, tu utilises juste l'application via le web. Exemples : Office 365, Gmail, Salesforce, Dropbox. Le modèle dominant aujourd'hui : pas d'install, pas de mise à jour, abonnement mensuel. Confidentialité à vérifier (où sont les données).",
+  "Qu'est-ce que Syslog ?": "Protocole STANDARD pour la centralisation des journaux d'événements. Les équipements (Linux, switches, firewalls) envoient leurs logs (port UDP 514) à un serveur Syslog central qui stocke tout. Permet : analyse centralisée, corrélation d'événements, conformité (RGPD, ISO27001 demandent une journalisation centralisée). Évolutions : rsyslog, syslog-ng.",
+  "Qu'est-ce que Sysprep ?": "Outil Microsoft (System Preparation) qui prépare une image Windows pour le clonage en supprimant les éléments uniques : SID (identifiant de sécurité), nom de machine, données d'activation, etc. Sans Sysprep, deux machines clonées auraient le même SID → catastrophe pour l'AD. Lancé en fin de préparation, avant la capture (Capture Image).",
+  "Qu'est-ce que WDS ?": "Windows Deployment Services : rôle Windows Server qui permet de déployer des images Windows via PXE. Inclut un serveur TFTP pour le boot et un serveur d'images. Souvent couplé avec MDT pour des séquences plus avancées (post-install, drivers, applications). Module fondamental pour un TSSR qui gère un parc Windows.",
+  "Qu'est-ce que WPA2/WPA3 Enterprise ?": "Mode 'Enterprise' du WPA2/WPA3 : chaque utilisateur a SES PROPRES identifiants (typiquement liés à l'AD via RADIUS, port 1812). Bien plus sûr que WPA2 Personal (mot de passe partagé). Avantage : on peut révoquer un utilisateur sans changer le mot de passe Wi-Fi de toute l'entreprise. Standard en entreprise.",
+  "Qu'est-ce que WSUS ?": "Windows Server Update Services : serveur centralisé qui télécharge les mises à jour Microsoft UNE FOIS et les distribue ensuite à tous les postes du réseau. Économise la bande passante Internet, permet de tester les patchs avant déploiement (groupes pilotes), et de planifier les déploiements. Indispensable dans les grandes infrastructures.",
+  "Qu'est-ce que l'Active Directory (AD) ?": "L'AD est l'annuaire centralisé de Microsoft : il stocke utilisateurs, groupes, ordinateurs, imprimantes, etc. dans une base hiérarchique. Quand tu te logues sur un PC du domaine, c'est l'AD qui valide tes identifiants. Couplé aux GPO, il pilote tous les paramètres des postes du parc. Présent dans 95% des entreprises de plus de 50 employés.",
+  "Qu'est-ce que l'adresse de broadcast ?": "La dernière adresse d'un réseau (tous les bits hôtes à 1) : sert à envoyer un message à TOUS les hôtes du réseau simultanément. Ex : pour 192.168.1.0/24, le broadcast est 192.168.1.255. Utilisée par DHCP, ARP, et autres protocoles de découverte. Non routée par les routeurs (limitée au réseau local).",
+  "Qu'est-ce que l'encapsulation dans le modèle OSI ?": "Quand des données traversent les 7 couches de haut en bas (côté émetteur), chaque couche ajoute son propre en-tête. Les données HTTP sont 'emballées' dans un segment TCP, puis dans un paquet IP, puis dans une trame Ethernet. À la réception, c'est l'inverse : désencapsulation.",
+  "Qu'est-ce que l'écoresponsabilité numérique ?": "Réduire l'impact environnemental de l'IT : ALLONGER la durée de vie du matériel (réparer plutôt que remplacer), ÉTEINDRE les postes inutiles, OPTIMISER les serveurs (virtualisation), choisir des hébergeurs verts, recycler les DEEE. Le numérique = 4% des émissions CO2 mondiales et ça monte. Sujet important pour les certifications et l'examen.",
+  "Qu'est-ce que la QoS en VoIP ?": "Quality of Service : mécanismes qui PRIORISENT les flux voix sur le réseau pour garantir la qualité d'appel (pas de coupures, pas de hachures, pas de latence). Réalisé par : marquage DSCP des paquets voix, files d'attente prioritaires sur les routeurs, dimensionnement de la bande passante. SANS QoS = qualité audio inutilisable dès que le réseau est chargé.",
+  "Qu'est-ce que la VoIP ?": "Voice over IP : transport de la voix (téléphonie) via le RÉSEAU IP (Internet ou réseau interne) au lieu du réseau téléphonique traditionnel (RTC). Avantages : un seul câblage (réseau et téléphone), coût réduit (appels gratuits en interne), fonctionnalités modernes (transferts, conférences, présence). DEVENU LA NORME : le RTC s'arrête en France progressivement.",
+  "Qu'est-ce que la gigue (jitter) ?": "Variation du DÉLAI entre les paquets voix qui arrivent. Si les paquets arrivent espacés de manière irrégulière (parfois 10ms, parfois 100ms), la voix est hachée. Pour la VoIP, on tolère < 30ms de gigue. Solution : buffer de gigue (jitter buffer) côté téléphone qui lisse en stockant temporairement.",
+  "Qu'est-ce que la haute disponibilité (HA) ?": "Capacité d'un système à rester opérationnel même en cas de panne. Mesurée en 'neufs' : 99,9% (3 neufs) = 8h d'arrêt/an. 99,99% (4 neufs) = 52 min/an. 99,999% (5 neufs) = 5 min/an. Réalisé par : redondance (2 serveurs au lieu d'un), basculement auto (failover), clusters.",
+  "Qu'est-ce que la journalisation (logging) ?": "Enregistrement automatique des événements système et réseau dans des journaux (logs). Indispensable pour : diagnostiquer les pannes, détecter les attaques, prouver la conformité. Centralisation conseillée (Syslog + SIEM type Wazuh, Graylog, Splunk). Sans logs, pas de forensique possible après incident.",
+  "Qu'est-ce que la migration à chaud (vMotion) ?": "Déplacer une VM en cours d'exécution d'un hôte physique vers un autre, SANS interruption. La RAM est copiée à chaud, puis la VM bascule en quelques millisecondes. Utile pour : maintenance d'un serveur sans downtime, équilibrage automatique de charge. Nom Microsoft : Live Migration. Demande un stockage partagé.",
+  "Qu'est-ce que la règle de sauvegarde 3-2-1 ?": "Règle d'or de la sauvegarde : 3 COPIES des données / sur 2 SUPPORTS différents / dont 1 HORS SITE. Pourquoi : un disque peut tomber en panne, un site peut brûler, un cryptolocker peut détruire les sauvegardes locales. Cette règle te protège de tous les scénarios catastrophe. Variante moderne 3-2-1-1-0 : +1 copie immuable +0 erreur de restauration.",
+  "Qu'est-ce que la supervision réseau ?": "Surveillance EN CONTINU des équipements (switches, routeurs, serveurs), services et performances pour détecter les anomalies AVANT que les utilisateurs ne s'en rendent compte. Mesure : disponibilité (up/down), CPU/RAM/disque, bande passante, temps de réponse. Outils : Nagios, Zabbix, Centreon, PRTG, Grafana. Pilier de la fiabilité IT.",
+  "Qu'est-ce que la veille technologique pour un TSSR ?": "Se TENIR INFORMÉ en continu des évolutions IT : nouvelles versions logicielles, FAILLES DE SÉCURITÉ (CVE), nouveaux outils, bonnes pratiques. Sources : sites spécialisés (Le Monde Informatique, ZDNet), bulletins ANSSI, newsletters constructeurs, podcasts, conférences. Faire de la veille n'est pas optionnel, c'est CRUCIAL pour rester pertinent.",
+  "Qu'est-ce que le FSMO dans l'AD ?": "Flexible Single Master Operations : 5 rôles uniques répartis sur les contrôleurs de domaine. Schema Master (modif schéma), Domain Naming Master (forêt), RID Master (génère SID), PID Emulator (synchro temps + compat anciennes versions), Infrastructure Master (refs cross-domaine). Si un DC porteur tombe, on transfère le rôle. À connaître : ces 5 rôles tombent souvent à l'examen.",
+  "Qu'est-ce que le MFA ?": "Multi-Factor Authentication : exige au minimum 2 preuves d'identité de catégories différentes : ce qu'on SAIT (mot de passe), ce qu'on POSSÈDE (téléphone, token, badge), ce qu'on EST (biométrie). Bloque 99% des attaques sur compte (même si le mot de passe est volé). DEVENU INDISPENSABLE en 2025, surtout pour les comptes admin.",
+  "Qu'est-ce que le NAT ?": "Network Address Translation : traduit une (ou plusieurs) IP privée(s) du réseau interne en IP publique pour sortir sur Internet. Sans NAT, on aurait épuisé les IPv4 depuis longtemps. Réalisé par la box Internet ou le routeur d'entreprise. Variante : SNAT (source), DNAT (destination, pour publier un service).",
+  "Qu'est-ce que le PAT ?": "Port Address Translation : variante du NAT qui permet à PLUSIEURS machines internes d'utiliser UNE SEULE IP publique en jouant sur les ports source. Aussi appelé NAT overload ou Masquerade (sur iptables Linux). C'est ce qui se passe chez toi : ta box a 1 IP publique, et tes 10 appareils sortent avec.",
+  "Qu'est-ce que le RAID 0 ?": "Striping (entrelacement) sans aucune redondance : les données sont DÉCOUPÉES et réparties sur 2+ disques en parallèle pour MAXIMISER LA VITESSE. Inconvénient MAJEUR : aucune tolérance à la panne — si UN disque tombe, TOUTES les données sont perdues. À n'utiliser que pour des données non critiques (cache, fichiers temporaires).",
+  "Qu'est-ce que le RAID 1 ?": "Mirror : 2 disques identiques contiennent EXACTEMENT les mêmes données. Si un disque tombe, l'autre prend immédiatement le relais sans coupure. Sécurité : tolère 1 panne de disque. Coût : on perd 50% de la capacité (2 disques de 1To = 1To utile). Idéal pour le système ou des petits volumes critiques.",
+  "Qu'est-ce que le RAID 10 (1+0) ?": "RAID 1+0 : combine miroir (RAID 1) + striping (RAID 0). On crée des couples miroir, puis on fait du striping entre eux. Minimum 4 disques, capacité utilisable = 50%. Avantages : performance ÉLEVÉE (lecture+écriture) ET tolérance à plusieurs pannes (selon les couples). RECOMMANDÉ pour les bases de données et workloads exigeants.",
+  "Qu'est-ce que le RAID 5 ?": "Striping avec parité : données réparties sur 3+ disques avec un bloc de parité distribué. Tolère 1 panne de disque. Capacité utilisable : (N-1) * taille du plus petit. Bon compromis perf/sécurité/coût. Inconvénient : reconstruction lente après remplacement de disque, et risque pendant la reconstruction → préférer RAID 6 ou 10 sur gros volumes.",
+  "Qu'est-ce que le RAID 6 ?": "Striping avec DOUBLE parité : données réparties + 2 blocs de parité distribués. Tolère la panne SIMULTANÉE de 2 disques. Minimum 4 disques. Capacité utilisable : (N-2) * taille du plus petit. Plus sûr que RAID 5 mais 1 disque de plus 'perdu' en parité. Recommandé sur baies de stockage modernes (gros disques = reconstruction longue).",
+  "Qu'est-ce que le RPO ?": "Recovery Point OBJECTIVE : quantité maximum de données qu'on accepte de PERDRE. Si RPO = 1h, on doit avoir une sauvegarde de moins d'1h. RPO 1h = sauvegarde toutes les heures. RPO 24h = sauvegarde quotidienne. Définition métier : combien de DONNÉES pouvons-nous accepter de perdre ?",
+  "Qu'est-ce que le RTO ?": "Recovery Time OBJECTIVE : durée MAXIMUM acceptable entre la panne et la remise en service. Si RTO = 4h, on doit être de retour sous 4h. Plus le RTO est court, plus l'infra coûte cher (HA, redondance). Définition métier : combien de TEMPS pouvons-nous accepter d'être en panne ?",
+  "Qu'est-ce que le WOL ?": "Wake on LAN : technologie permettant d'allumer un PC à distance en envoyant un 'magic packet' réseau spécial à son adresse MAC. La carte réseau, même éteinte, écoute ces paquets si activée. Très utilisé pour : lancer des sauvegardes nocturnes, déployer des patchs, allumer un PC avant intervention.",
+  "Qu'est-ce que le filtrage MAC ?": "Autoriser uniquement les appareils dont l'adresse MAC (identifiant unique de la carte réseau) est dans une liste blanche. Sécurité supplémentaire en Wi-Fi ou sur switch. ATTENTION : faiblesse — les MAC peuvent être facilement usurpées (spoofing). À combiner avec d'autres mesures, jamais seul.",
+  "Qu'est-ce que le filtrage URL ?": "Bloquer l'accès à des sites web selon une liste noire (URLs précises) ou des catégories (pornographie, jeux d'argent, etc.). Réalisé par un proxy (Squid + SquidGuard) ou un firewall NextGen (Stormshield, Fortinet). Utile pour la productivité, la sécurité (anti-phishing) et la conformité.",
+  "Qu'est-ce que le phishing ?": "Le phishing (hameçonnage) est la #1 des attaques aujourd'hui. L'attaquant se fait passer pour quelqu'un de confiance (banque, DSI, collègue) via email/SMS pour piéger ta vigilance et te faire cliquer ou révéler des infos. Parade : sensibilisation utilisateur, filtrage anti-spam, MFA pour limiter l'impact d'un mot de passe volé.",
+  "Qu'est-ce que le pipe (|) en Bash ?": "Même principe que PowerShell mais avec du TEXTE : la sortie standard d'une commande devient l'entrée de la suivante. Ex : cat fichier.txt | grep \"erreur\" | wc -l (compter les lignes contenant 'erreur'). Très puissant pour combiner des outils Unix qui font chacun une chose simple.",
+  "Qu'est-ce que le pipe (|) en PowerShell ?": "Le pipe envoie la SORTIE d'une cmdlet comme ENTRÉE de la suivante, mais en passant des OBJETS .NET (pas du texte). Ex : Get-Process | Where-Object {$_.CPU -gt 100} | Select-Object Name, CPU. C'est la signature de PowerShell : composer des actions complexes en chaînant des cmdlets simples.",
+  "Qu'est-ce que le principe du moindre privilège ?": "Donner à chaque utilisateur UNIQUEMENT les droits strictement nécessaires à son travail — pas un de plus. Un commercial n'a pas besoin d'admin local. Un comptable n'a pas accès aux dossiers RH. Limite drastiquement les dégâts en cas de compte compromis ou d'erreur humaine.",
+  "Qu'est-ce que le protocole EAS ?": "Exchange ActiveSync : protocole propriétaire Microsoft pour synchroniser email + contacts + calendrier entre Exchange et appareils mobiles (iPhone, Android). Permet le push (les mails arrivent en temps réel) et la gestion à distance (effacement en cas de perte). Standard sur tous les smartphones modernes.",
+  "Qu'est-ce que le protocole ICMP ?": "Internet Control Message Protocol (couche 3) : sert aux diagnostics et messages d'erreur réseau. Utilisé par ping (echo request/reply) et traceroute. Aussi : 'Destination Unreachable', 'Time Exceeded'. Souvent filtré par les firewalls externes (mais pas en interne, sinon on ne diagnostique plus rien).",
+  "Qu'est-ce que le protocole RTP ?": "Real-time Transport Protocol : transporte le flux AUDIO/VIDÉO en temps réel. Utilise UDP (rapide, on ne retransmet pas un paquet voix perdu — ça arriverait trop tard). Numéros de séquence pour reconstruire l'ordre. Couplé avec RTCP pour le contrôle qualité. SIP = signalisation, RTP = média audio/vidéo.",
+  "Qu'est-ce que le protocole SIP ?": "Session Initiation Protocol : protocole STANDARD pour établir, modifier et terminer les sessions VoIP. Utilisé pour la signalisation (qui appelle qui, quand raccrocher). Port 5060 (TCP/UDP en clair) ou 5061 (chiffré TLS). C'est le 'téléphone' qui appelle, le 'décrochage' et la 'terminaison'. Le flux audio lui passe par RTP.",
+  "Qu'est-ce que le routage inter-VLAN ?": "Pour qu'un VLAN parle à un autre VLAN, il faut router (couche 3) entre eux. Réalisé par : routeur sur un trunk ('Router on a stick'), ou switch L3 (qui fait routage + commutation). Sans routage, les VLAN sont totalement isolés — c'est parfois voulu pour la sécurité.",
+  "Que contient un bail DHCP ?": "Un bail DHCP contient : l'adresse IP attribuée, le masque de sous-réseau, la passerelle (gateway), les DNS, et la durée de validité. Quand le bail expire à 50%, le client demande un renouvellement. Bonne pratique : durée courte (8h) en réseau wifi/visiteur, plus longue (8 jours) en LAN stable.",
+  "Que signifie \"*/5 * * * *\" en cron ?": "Exécuter la tâche TOUTES les 5 minutes (à :00, :05, :10, ..., :55), chaque heure, chaque jour. Le */5 dans le champ minute signifie 'tous les 5'. Autres exemples : 0 2 * * * (chaque jour à 2h00), 0 0 * * 0 (chaque dimanche à minuit), @reboot (au démarrage).",
+  "Que signifie \"Did you try restarting?\" ?": "Question N°1 du support : 'Avez-vous essayé de redémarrer ?'. À poser systématiquement avant tout diagnostic. Le redémarrage résout 30 à 50% des incidents (caches vidés, services relancés, connexions rétablies).",
+  "Que signifie \"I will check the logs\" ?": "'Je vais vérifier les journaux'. Phrase incontournable du support technique. Les logs Windows (Event Viewer), Linux (/var/log) ou applicatifs sont la première source de vérité quand un incident est rapporté.",
+  "Que signifie \"Please describe the issue\" ?": "'Veuillez décrire le problème'. 'Issue' = problème, ennui (terme plus diplomatique que 'problem'). Question d'ouverture classique d'un ticket de support : laisse l'utilisateur expliquer en ses mots.",
+  "Que signifie \"The server is back online\" ?": "'Le serveur est de nouveau en ligne'. Phrase rassurante à envoyer aux utilisateurs après une intervention. 'Online' = en ligne, opérationnel. 'Offline' = hors ligne, indisponible.",
+  "Que signifie \"patch management\" ?": "'Gestion des correctifs'. Processus organisé de déploiement des patchs de sécurité et corrections de bugs. WSUS sous Windows, apt/yum sous Linux. Activité critique pour la cybersécurité — un patch tardif = une vulnérabilité exploitable.",
+  "Que signifie ITIL ?": "Information Technology Infrastructure Library : un cadre méthodologique mondial qui structure la gestion des services IT. Il définit le vocabulaire (incident, problème, changement, demande) et les processus à suivre. Les certifications ITIL Foundation puis Practitioner sont valorisées sur le CV d'un TSSR.",
+  "Que signifient les droits 755 ?": "Chaque chiffre = somme de 4 (lecture) + 2 (écriture) + 1 (exécution). 7 = 4+2+1 = rwx (tous droits). 5 = 4+1 = r-x (lecture + exécution). 755 = propriétaire tout, groupe et autres : lecture+exécution. Standard pour les scripts et binaires. 644 (rw-r--r--) standard pour les fichiers de config.",
+  "Quel est l'outil de ticketing libre le plus utilisé ?": "GLPI (Gestionnaire Libre de Parc Informatique) est l'outil open source de référence en France. Il combine gestion de tickets et gestion de parc (inventaire matériel/logiciel). Gratuit, énorme communauté, plugins nombreux. Alternative payante : ServiceNow (gros groupes), Jira Service Management.",
+  "Quel est le PDU (unité de données) de la couche 2 ?": "La trame (frame en anglais) est l'unité de données de la couche 2. Elle contient : adresse MAC source, MAC destination, payload (données venant de la couche 3), et un FCS (CRC) pour détecter les erreurs. Sur Ethernet, taille typique : 1518 octets max (avec jumbo frames jusqu'à 9000).",
+  "Quel est le PDU de la couche 3 ?": "Le paquet (packet) est l'unité de la couche 3. Il contient : IP source, IP destination, TTL (Time To Live, anti-boucle), protocole (TCP=6, UDP=17, ICMP=1), et le payload. C'est ce que les routeurs analysent pour décider du chemin.",
+  "Quel est le PDU de la couche 4 ?": "TCP utilise des SEGMENTS, UDP utilise des DATAGRAMMES. Les deux contiennent : port source, port destination, payload, et des champs de contrôle (numéros de séquence pour TCP, checksum). C'est ici qu'on identifie l'application destinataire (port 443 = serveur web, port 22 = SSH, etc).",
+  "Quel est le format d'une ligne crontab ?": "5 champs séparés par des espaces : minute (0-59) heure (0-23) jour-du-mois (1-31) mois (1-12) jour-semaine (0-7, dim=0 ou 7), suivis de la commande. Exemple : '30 8 * * 1-5 /usr/bin/script.sh' = à 8h30 du lundi au vendredi.",
+  "Quel est le masque de /25 ?": "/25 = 25 bits réseau = 11111111.11111111.11111111.10000000 = 255.255.255.128. Comprends-le bien : on a juste 'pris' 1 bit du dernier octet pour faire 2 sous-réseaux d'un /24. Idéal pour partager une plage en deux moitiés.",
+  "Quel est le masque de /26 ?": "/26 = 26 bits réseau = 11111111.11111111.11111111.11000000 = 255.255.255.192. On a pris 2 bits du dernier octet → 4 sous-réseaux possibles. 192 = 128 + 64 (les 2 premiers bits à 1).",
+  "Quel est le masque de /27 ?": "/27 = 27 bits réseau = 11111111.11111111.11111111.11100000 = 255.255.255.224. On a pris 3 bits du dernier octet → 8 sous-réseaux possibles. 224 = 128 + 64 + 32.",
+  "Quel est le masque de /28 ?": "/28 = 28 bits réseau = 11111111.11111111.11111111.11110000 = 255.255.255.240. On a pris 4 bits du dernier octet → 16 sous-réseaux. 240 = 128 + 64 + 32 + 16.",
+  "Quel est le rôle du serveur DHCP ?": "Distribuer automatiquement aux postes : adresse IP, masque, passerelle (gateway), DNS, et autres options (NTP, WPAD...). Sans DHCP, il faudrait configurer chaque PC à la main. Bonne pratique : 2 serveurs DHCP en HA (failover ou split scope) car DHCP en panne = nouveaux postes sans réseau.",
+  "Quel est le rôle du serveur DNS dans un domaine AD ?": "Le DNS est INDISPENSABLE à l'AD : les clients trouvent les contrôleurs de domaine via des enregistrements SRV dans la zone DNS du domaine. Sans DNS qui marche, pas d'authentification, pas de Kerberos, pas de GPO. C'est pour ça qu'un DC héberge presque toujours aussi le DNS.",
+  "Quel fichier configure le réseau sous Debian ?": "Ancien : /etc/network/interfaces (Debian 9 et avant). Moderne sur Ubuntu : /etc/netplan/*.yaml. Sur RedHat/CentOS : /etc/sysconfig/network-scripts/ifcfg-* (ancien) ou via NetworkManager. Toujours faire un backup avant édition !",
+  "Quel fichier configure les résolutions DNS sous Linux ?": "/etc/resolv.conf : liste les serveurs DNS (lignes 'nameserver IP'). Attention sur les distros modernes : ce fichier est souvent généré dynamiquement par NetworkManager ou systemd-resolved. Pour le rendre permanent, modifier la conf de NetworkManager/netplan en amont.",
+  "Quel fichier contient les mots de passe hashés sous Linux ?": "/etc/shadow contient les mots de passe hashés (chiffrés). Lisible UNIQUEMENT par root (droits 640 propriétaire root). Crucial pour la sécurité : si un attaquant le récupère, il peut tenter du brute-force offline. Toujours protégé par les droits stricts.",
+  "Quel fichier contient les utilisateurs sous Linux ?": "/etc/passwd contient tous les utilisateurs locaux : login, UID, GID, nom complet, home, shell. Lisible par tous (par défaut), mais ne contient PAS les mots de passe (déplacés dans /etc/shadow pour des raisons de sécurité). Format : login:x:UID:GID:nom:home:shell.",
+  "Quel port utilise DHCP ?": "DHCP utilise 2 ports UDP : 67 (côté SERVEUR, qui écoute les demandes des clients) et 68 (côté CLIENT, qui reçoit les réponses du serveur). En UDP car la machine n'a pas encore d'IP, donc pas de connexion TCP possible. Process : DHCP DISCOVER → OFFER → REQUEST → ACK (mnémo DORA).",
+  "Quel port utilise DNS ?": "DNS (Domain Name System) utilise le port 53. Il fonctionne principalement en UDP (rapide pour résolutions classiques) mais bascule en TCP pour les transferts de zones et grosses réponses. Sans DNS, Internet ne marche pas : c'est l'annuaire qui traduit 'google.com' en adresse IP.",
+  "Quel port utilise FTP (données) ?": "FTP utilise 2 ports : 21 pour les COMMANDES (login, navigation) et 20 pour les DONNÉES (transfert). C'est le mode 'actif'. En mode 'passif' (utilisé par la plupart des navigateurs), le port de données est négocié dynamiquement. ATTENTION : FTP transmet TOUT en clair, préférer SFTP (port 22) ou FTPS.",
+  "Quel port utilise FTP ?": "FTP utilise 2 ports : 21 pour les commandes (login, navigation) et 20 pour le transfert de données. Attention : FTP transmet TOUT en clair (mot de passe inclus). Préfère SFTP (sur SSH, port 22) ou FTPS (FTP + TLS).",
+  "Quel port utilise HTTP ?": "HTTP utilise le port 80 en TCP. C'est le protocole web NON sécurisé : tout circule en clair, n'importe qui sur le chemin peut lire les données. À éviter pour tout ce qui contient des mots de passe ou données sensibles. Aujourd'hui les navigateurs préfèrent HTTPS.",
+  "Quel port utilise HTTPS ?": "HTTPS = HTTP + TLS, sur le port 443 en TCP. Les données sont chiffrées de bout en bout grâce à un certificat SSL/TLS. C'est pour ça que tu vois un cadenas dans la barre d'adresse. Indispensable pour les sites bancaires, les mails, et de plus en plus universel.",
+  "Quel port utilise IMAP ?": "IMAP (Internet Message Access Protocol) utilise le port 143. Il synchronise les mails entre le serveur et tous tes appareils — c'est pour ça que ton mail lu sur le téléphone apparaît lu sur l'ordi. Version sécurisée : IMAPS sur 993.",
+  "Quel port utilise Kerberos ?": "Kerberos utilise le port 88 (TCP/UDP). C'est le protocole d'authentification d'Active Directory : il distribue des 'tickets' qui prouvent ton identité pendant un certain temps. Beaucoup plus sûr que les mots de passe transmis directement.",
+  "Quel port utilise LDAP ?": "LDAP (Lightweight Directory Access Protocol) utilise le port 389. C'est le protocole d'annuaire (Active Directory, OpenLDAP). Version sécurisée LDAPS sur le port 636. Quand tu te logues sur Windows en domaine, c'est LDAP qui interroge l'AD.",
+  "Quel port utilise LDAPS (sécurisé) ?": "LDAPS = LDAP + SSL/TLS sur le port 636 en TCP. Toujours préférer LDAPS à LDAP simple (389) pour éviter de transmettre les mots de passe en clair. Particulièrement important quand on configure des applications externes qui s'authentifient sur l'AD.",
+  "Quel port utilise MySQL ?": "MySQL utilise le port 3306 en TCP. Comme tous les ports de bases de données, à n'exposer que sur le réseau interne, jamais sur Internet. Si MySQL est sur le même serveur que l'application, on peut même utiliser le socket local pour plus de performance et sécurité.",
+  "Quel port utilise NTP ?": "NTP (Network Time Protocol) utilise le port 123 en UDP. Il synchronise l'horloge des machines avec un serveur de temps. Capital pour Active Directory (Kerberos refuse une dérive de plus de 5 minutes), pour les logs cohérents et les certificats SSL.",
+  "Quel port utilise POP3 ?": "POP3 (Post Office Protocol v3) utilise le port 110. Il télécharge les mails du serveur et les supprime (par défaut). Version sécurisée : POP3S sur 995. Aujourd'hui, on préfère IMAP qui synchronise au lieu de télécharger.",
+  "Quel port utilise PostgreSQL ?": "PostgreSQL utilise le port 5432 en TCP. Même règle de sécurité : jamais sur Internet. Le fichier pg_hba.conf permet de restreindre quelles IP peuvent se connecter, complémentaire au pare-feu réseau.",
+  "Quel port utilise RADIUS ?": "RADIUS = Remote Authentication Dial-In User Service. 2 ports UDP : 1812 (authentification, le plus important) et 1813 (accounting/comptabilité). Utilisé pour authentifier les utilisateurs Wi-Fi (WPA2 Enterprise), VPN, accès admin sur switches. Souvent couplé à AD via Microsoft NPS (Network Policy Server).",
+  "Quel port utilise RDP ?": "RDP (Remote Desktop Protocol) utilise le port 3389 en TCP. C'est la prise en main à distance de Windows (Bureau à distance). À NE JAMAIS exposer directement sur Internet — utiliser un VPN devant. Cible n°1 des ransomwares.",
+  "Quel port utilise SIP ?": "SIP utilise le port 5060 (TCP/UDP) en clair, ou 5061 en TLS chiffré. Souvent le port 5060 est ouvert pour permettre la VoIP, mais ATTENTION : c'est une cible privilégiée des attaquants (fraude téléphonique, appels surtaxés). Toujours sécuriser : VLAN dédié voix, restriction des IP source.",
+  "Quel port utilise SMB / CIFS ?": "SMB (Server Message Block, aussi appelé CIFS) utilise le port 445 en TCP. C'est le protocole de partage de fichiers Windows (lecteurs réseau, imprimantes partagées). Cible historique : c'est le port qu'a exploité WannaCry en 2017 via la faille EternalBlue.",
+  "Quel port utilise SMB/CIFS ?": "SMB (Server Message Block, aussi appelé CIFS) sur le port 445 en TCP. Protocole de partage de fichiers et imprimantes Windows. C'est ce que tu utilises quand tu accèdes à \\\\serveur\\partage. Cible historique des attaques (WannaCry 2017 via faille EternalBlue). Toujours désactiver SMBv1 (obsolète et faillé).",
+  "Quel port utilise SMTP ?": "SMTP (Simple Mail Transfer Protocol) utilise le port 25 pour l'envoi de mails entre serveurs. Pour l'envoi par les clients (Outlook, Thunderbird), on utilise plutôt 587 (SMTP authentifié) ou 465 (SMTPS, chiffré). Le port 25 est souvent bloqué par les FAI pour limiter les spams.",
+  "Quel port utilise SNMP ?": "SNMP utilise le port 161 (UDP) pour les requêtes et 162 pour les traps (alertes). C'est le standard de supervision réseau : Nagios, Zabbix, Centreon l'utilisent pour interroger switches, routeurs, serveurs. Toujours désactiver SNMPv1/v2 (non chiffré) au profit de SNMPv3.",
+  "Quel port utilise SSH ?": "SSH (Secure Shell) utilise le port 22 en TCP. Il permet de se connecter à distance sur un serveur Linux/Unix de manière chiffrée. Bonne pratique de sécurité : changer le port 22 par défaut pour limiter les attaques automatisées (par exemple le mettre sur 2222).",
+  "Quel port utilise Syslog ?": "Syslog utilise le port 514 en UDP par défaut (TCP en option, plus fiable). C'est le standard de centralisation des logs sur Linux/Unix et la plupart des équipements réseau. Indispensable pour la sécurité (corrélation d'événements) et le diagnostic.",
+  "Quel port utilise TFTP ?": "TFTP = Trivial FTP : port 69 en UDP. Version SIMPLIFIÉE de FTP : pas d'authentification, pas de listing de répertoire, juste GET et PUT. Utilisé pour : boot PXE (téléchargement de bootloader), configuration des switches Cisco, mises à jour de firmware. Jamais en environnement non maîtrisé !",
+  "Quel port utilise Telnet ?": "Telnet utilise le port 23 en TCP. C'est l'ancêtre de SSH, totalement non sécurisé (tout en clair). Encore présent sur de vieux équipements réseau. À remplacer impérativement par SSH dès que possible.",
+  "Quel protocole résout une adresse IP en adresse MAC ?": "ARP (Address Resolution Protocol). Quand un PC veut parler à 192.168.1.5, il fait un broadcast ARP : 'Qui a 192.168.1.5 ?'. La machine concernée répond avec son adresse MAC. Les correspondances sont mises en cache (commande arp -a pour voir). ARP travaille à la frontière des couches 2 et 3.",
+  "Quelle commande affiche l'espace disque disponible ?": "df -h (disk free, h = human readable : Go au lieu de blocs). Affiche tous les systèmes de fichiers montés avec leur taux d'occupation. Astuce : df -hT pour voir aussi le type (ext4, xfs, etc). Pour analyser un dossier précis : du -sh /chemin (taille totale en H readable).",
+  "Quelle commande affiche la configuration réseau sous Linux ?": "ip a (moderne, recommandé) ou ifconfig (ancien, sur certaines distros pas installé par défaut). 'ip address' montre les IP des interfaces. Pour voir l'état UP/DOWN : ip link. Pour configurer en live : ip addr add 192.168.1.10/24 dev eth0.",
+  "Quelle commande affiche la configuration réseau sous Windows ?": "ipconfig /all donne TOUT : IP, masque, passerelle, DNS, MAC, état DHCP, nom DNS, adresses IPv6, suffixes DNS. ipconfig (sans /all) ne donne que l'essentiel. Indispensable pour diagnostiquer 'pourquoi je n'ai pas Internet'.",
+  "Quelle commande affiche la table de routage sous Linux ?": "ip route show (commande moderne) ou route -n (ancienne, en chiffres pour aller plus vite). Indispensable pour diagnostiquer. Pour ajouter une route temporaire : ip route add 192.168.10.0/24 via 192.168.1.1. Pour persistance : config réseau (interfaces, netplan).",
+  "Quelle commande affiche la table de routage sous Windows ?": "route print (ou netstat -r). Affiche toutes les routes connues, avec destination, masque, passerelle, interface, métrique. Diagnostiquer un problème de routage commence souvent ici. Pour ajouter : route add. Pour supprimer : route delete.",
+  "Quelle commande affiche le répertoire courant sous Linux ?": "pwd = Print Working Directory. Affiche le chemin absolu du dossier dans lequel tu te trouves. Indispensable quand tu navigues en SSH et que tu te perds dans l'arborescence. Astuce : ajouter pwd dans le prompt PS1 pour toujours voir où tu es.",
+  "Quelle commande affiche les processus en cours ?": "ps aux (a=tous, u=détails utilisateur, x=hors tty). Snapshot statique. Pour interactif et tri en temps réel : top (ou htop, plus joli). Combinaisons utiles : ps aux | grep apache (chercher un processus), ps -ef --forest (arbre des processus).",
+  "Quelle commande crée un partage réseau en ligne de commande ?": "net share NomPartage=C:\\Dossier /grant:utilisateur,FULL crée un partage avec droits complets. Alternatives : New-SmbShare en PowerShell (plus puissant), interface graphique via clic droit > Partager. Toujours coupler avec les droits NTFS pour une vraie sécurité.",
+  "Quelle commande force l'application des GPO ?": "gpupdate /force met à jour TOUTES les GPO immédiatement (sans attendre le cycle de 90 minutes par défaut). Le /force réapplique même celles qui n'ont pas changé. Souvent suivi d'un redémarrage si la GPO concerne le démarrage. À utiliser quand tu veux tester une nouvelle GPO sans attendre.",
+  "Quelle commande liste les fichiers avec détails sous Linux ?": "ls -la affiche tous les fichiers (a = all, y compris les cachés .fichier) avec détails (l = long format : droits, propriétaire, taille, date). Combinaisons utiles : ls -lah (h = human readable, taille en Ko/Mo), ls -ltr (par date croissante).",
+  "Quelle commande liste les rôles FSMO ?": "netdom query fsmo (en CMD) ou Get-ADDomain | Select-Object *Master* (PowerShell). Pour transférer un rôle : ntdsutil ou Move-ADDirectoryServerOperationMasterRole. Rare au quotidien, mais critique en cas de perte d'un DC porteur.",
+  "Quelle commande recherche du texte dans un fichier sous Linux ?": "grep \"texte\" fichier.txt. Options puissantes : -i (insensible à la casse), -r (récursif dans un dossier), -n (numéros de ligne), -v (inverser : lignes SANS le motif). Combiné avec un pipe : tail -100 syslog | grep ERROR. C'est l'outil de fouille #1.",
+  "Quelle commande se connecter en SSH ?": "ssh utilisateur@adresse_ip (ou nom DNS). Premier login : confirmation de l'empreinte (fingerprint). Options utiles : -p port (si port modifié), -i clé.pem (auth par clé). Bonne pratique : authentification par clé SSH plutôt que mot de passe, et désactiver root login.",
+  "Quelle commande teste la connectivité réseau ?": "ping adresse_ip (ou nom DNS). Utilise ICMP echo request/reply. Si ça répond, la cible est joignable jusqu'en couche 3. Attention : certains firewalls bloquent ICMP, donc 'ping ne passe pas' ne signifie pas toujours 'serveur down'. Tester aussi avec un port précis (telnet IP port).",
+  "Quelle commande trace le chemin vers une destination ?": "Windows : tracert. Linux/macOS : traceroute. Affiche tous les routeurs entre toi et la cible (chaque 'saut'). Utile pour identifier OÙ ça bloque (ton réseau ? le FAI ? le datacenter cible ?). Variante : mtr (combine ping + traceroute en continu, super pratique).",
+  "Quelle commande vérifie les GPO appliquées ?": "gpresult /r affiche un résumé des GPO appliquées sur la machine. /h pour un rapport HTML détaillé (gpresult /h rapport.html). Indispensable pour diagnostiquer 'pourquoi cette GPO ne s'applique pas' — souvent un problème de filtrage de sécurité ou d'OU.",
+  "Quelle différence entre Cat5e et Cat6 ?": "Cat5e : 1 Gbit/s sur 100m, économique, suffisant pour le bureau standard. Cat6 : jusqu'à 10 Gbit/s sur 55m (1 Gbit/s sur 100m), meilleure résistance aux interférences. Cat6a : 10 Gbit/s sur 100m, devenu le standard pour les nouvelles installations professionnelles.",
+  "Quelle différence entre Exchange on-premise et Exchange Online ?": "ON-PREMISE : serveurs Exchange installés DANS l'entreprise (auto-hébergement). Avantage : contrôle total, données chez soi. Inconvénient : maintenance lourde, mises à jour, sauvegardes. ONLINE : Exchange dans le cloud Microsoft (Microsoft 365). Plus de serveurs à gérer, mises à jour auto, mais dépendance à Microsoft et coût récurrent par utilisateur.",
+  "Quelle différence entre IDS et IPS ?": "IDS (Detection) : DÉTECTE et ALERTE — il observe le trafic pour identifier des comportements suspects. Mode passif. IPS (Prevention) : DÉTECTE ET BLOQUE automatiquement — il agit en temps réel. Mode actif. L'IPS = IDS + capacité d'action. Risque IPS : faux positifs qui bloquent du trafic légitime.",
+  "Quelle différence entre PRA et PCA ?": "PRA = on ACCEPTE une coupure et on RESTAURE après le sinistre (RTO de plusieurs heures à jours). Coût modéré. PCA = ZÉRO interruption, le service continue PENDANT le sinistre (RTO proche de 0). Coût élevé (sites doublés). En pratique, on combine : PCA pour les services critiques, PRA pour le reste.",
+  "Quelle différence entre VPN client-to-site et site-to-site ?": "CLIENT-TO-SITE : un poste isolé (télétravailleur) se connecte au réseau de l'entreprise. C'est ce que tu utilises avec un client VPN (Cisco AnyConnect, OpenVPN). SITE-TO-SITE : 2 réseaux entiers (siège et filiale) sont reliés en permanence via un tunnel entre 2 routeurs/firewalls — totalement transparent pour les utilisateurs.",
+  "Quelle différence entre chiffrement symétrique et asymétrique ?": "SYMÉTRIQUE : 1 SEULE clé partagée (chiffre + déchiffre). Très rapide, gros volumes. Standard : AES-256. Souci : comment échanger la clé en sécurité ? ASYMÉTRIQUE : 2 clés (publique + privée), résout le problème d'échange. Plus lent. Standards : RSA, ECC. SOLUTION RÉELLE : on utilise les DEUX (asymétrique pour échanger la clé symétrique, symétrique pour les données — c'est ce que fait HTTPS).",
+  "Quelle différence entre cloud public, privé et hybride ?": "PUBLIC : ressources mutualisées chez un fournisseur (AWS, Azure, GCP), accessible via Internet. PRIVÉ : infrastructure dédiée à une seule organisation (peut être on-premise ou hébergée). HYBRIDE : combinaison des deux — données sensibles en privé, élasticité en public. La majorité des grandes entreprises sont en hybride.",
+  "Quelle différence entre fibre monomode et multimode ?": "MONOMODE : un seul rayon lumineux dans un coeur très fin (9 µm), longue distance (jusqu'à 100 km), couleur jaune. Plus chère (laser plus précis). Pour interconnexion entre sites, datacenters. MULTIMODE : plusieurs rayons dans un coeur plus gros (50 ou 62.5 µm), courte distance (qq centaines de mètres max), couleur orange/aqua. Moins chère. Pour réseaux internes.",
+  "Quelle différence entre hyperviseur Type 1 et Type 2 ?": "Type 1 (bare-metal) : s'installe DIRECTEMENT sur le matériel, pas d'OS hôte (ESXi, Hyper-V Server, Proxmox, KVM). Plus performant et plus sûr — pour la production. Type 2 (hosted) : s'installe sur un OS existant comme un logiciel (VirtualBox, VMware Workstation, Hyper-V sur Win10). Pour le test, le développement.",
+  "Quelle différence entre image thick et thin ?": "THICK : image COMPLÈTE avec OS + TOUTES les apps. Fichier énorme, mais déploiement rapide (tout est dedans). THIN : image MINIMALE (juste l'OS), les apps sont installées APRÈS via des packages (App-V, MSI, Chocolatey). Plus flexible, mais déploiement plus long. Variante : 'hybrid' (apps de base dans l'image, le reste post-install).",
+  "Quelle différence entre pare-feu réseau et WAF ?": "PARE-FEU RÉSEAU : analyse couches 3-4 (IP source, IP destination, ports, protocole) — bloque selon des règles classiques. WAF (Web Application Firewall) : analyse la couche 7 (contenu HTTP, paramètres, JSON) — détecte les attaques web (SQL injection, XSS, CSRF). Ils sont COMPLÉMENTAIRES et non concurrents.",
+  "Quelle différence entre sauvegarde incrémentale et différentielle ?": "INCRÉMENTALE : sauvegarde uniquement ce qui a changé depuis la DERNIÈRE sauvegarde (qu'elle soit complète ou incr). Très RAPIDE et léger, mais restauration = complète + toutes les incr depuis. DIFFÉRENTIELLE : sauvegarde ce qui a changé depuis la dernière COMPLÈTE. Plus volumineuse mais restauration = complète + UNE diff (plus simple).",
+  "Quelle est la PDU de la couche 2 ?": "PDU = Protocol Data Unit, l'unité de données traitée à chaque couche. Couche 2 = trame (frame). C'est l'unité que manipulent les switches Ethernet. Elle contient les adresses MAC source et destination ainsi qu'un FCS pour détecter les erreurs.",
+  "Quelle est la PDU de la couche 3 ?": "Au niveau réseau (couche 3), l'unité s'appelle paquet. Le paquet IP contient les adresses IP source et destination, plus le TTL (Time To Live) qui empêche les boucles infinies. C'est ce que les routeurs analysent pour décider du chemin à suivre.",
+  "Quelle est la PDU de la couche 4 ?": "En transport (couche 4), TCP utilise des segments, UDP utilise des datagrammes. C'est à ce niveau que sont ajoutés les ports (source/destination) qui permettent à plusieurs applications de cohabiter sur une même machine — par exemple un navigateur (port aléatoire) qui parle à un serveur web (port 443).",
+  "Quelle est la couche 1 du modèle OSI ?": "La couche Physique gère TOUT ce qui est tangible : câbles cuivre/fibre, ondes Wi-Fi, signaux électriques, connecteurs RJ45. Elle transmet juste des bits bruts (0 et 1) sans se soucier de leur signification. Si ton câble est débranché, c'est un problème couche 1.",
+  "Quelle est la couche 2 du modèle OSI ?": "La couche Liaison de données structure les bits en trames et utilise les adresses MAC (gravées dans la carte réseau). C'est la couche des switches, du protocole ARP (qui associe IP↔MAC), et du Wi-Fi (802.11). Si ton switch a un problème de VLAN, c'est couche 2.",
+  "Quelle est la couche 3 du modèle OSI ?": "La couche Réseau permet le routage entre différents réseaux grâce aux adresses IP. C'est ici que travaillent les routeurs et le protocole ICMP (utilisé par ping). Si tu n'arrives pas à joindre un autre réseau, c'est probablement couche 3.",
+  "Quelle est la couche 4 du modèle OSI ?": "La couche Transport assure la livraison des données entre applications via les ports. TCP garantit la fiabilité (accusés de réception, retransmission), UDP fonce sans contrôle (plus rapide, mais peut perdre des paquets). Quand tu ouvres un port sur un firewall, tu travailles en couche 4.",
+  "Quelle est la couche 5 du modèle OSI ?": "La couche Session ouvre, gère et ferme les sessions de communication entre deux machines. Elle gère par exemple les sessions NetBIOS, RPC, ou les connexions persistantes. C'est la couche la moins visible au quotidien, mais essentielle pour les applications client-serveur.",
+  "Quelle est la couche 6 du modèle OSI ?": "La couche Présentation s'occupe du formatage des données : chiffrement (TLS/SSL), compression, encodage (UTF-8, ASCII). Quand tu vois HTTPS dans ton navigateur, c'est la couche 6 qui chiffre. Elle traduit les données pour qu'elles soient compréhensibles par l'application.",
+  "Quelle est la couche 7 du modèle OSI ?": "La couche Application est celle que voit l'utilisateur : navigateur web (HTTP), client mail (SMTP/IMAP), transfert de fichiers (FTP), DNS. C'est ici que vivent les protocoles 'métier'. Quand un utilisateur dit 'je n'arrive pas à envoyer mon mail', c'est couche 7.",
+  "Quelle est la différence entre POP3 et IMAP ?": "POP3 (port 110) : TÉLÉCHARGE les mails sur l'appareil et les SUPPRIME du serveur (par défaut). Tes mails ne sont plus accessibles depuis un autre appareil. Modèle 'old school'. IMAP (port 143) : SYNCHRONISE les mails, qui restent sur le serveur. Tu vois les mêmes mails sur ton PC, ton téléphone, ton webmail. Standard moderne.",
+  "Quelle est la différence entre TCP et UDP ?": "TCP est fiable mais plus lent : il établit une connexion (handshake 3-way), accuse réception, retransmet en cas de perte (utilisé pour HTTP, SSH, mail). UDP est rapide mais 'fire-and-forget' : pas de garantie de livraison (utilisé pour DNS, VoIP, streaming, jeux). Le choix dépend de ce qui est plus important : fiabilité ou vitesse.",
+  "Quelle est la différence entre droits NTFS et droits de partage ?": "Les droits NTFS s'appliquent partout (local + réseau), les droits de Partage uniquement quand on accède via le réseau (\\\\serveur\\partage). Quand les deux s'appliquent, c'est la règle la plus restrictive qui gagne. Bonne pratique : Partage = Tout le monde / Contrôle Total, et on gère finement avec NTFS.",
+  "Quelle est la différence entre un incident et une demande ?": "Distinction fondamentale d'ITIL : un INCIDENT = quelque chose ne marche plus (l'imprimante ne répond pas, le mail est down). Une DEMANDE = quelque chose de standard à fournir (créer un compte, installer Office, donner un accès). Les SLA et les processus sont différents pour chaque catégorie.",
+  "Quelle est la plage d'adresses de 192.168.1.0/26 ?": "Avec /26, taille du sous-réseau = 64 adresses. Les sous-réseaux dans 192.168.1.x sont : 0-63, 64-127, 128-191, 192-255. Pour 192.168.1.0/26 : Réseau=192.168.1.0, Première IP utilisable=192.168.1.1, Dernière IP utilisable=192.168.1.62, Broadcast=192.168.1.63.",
+  "Quelles questions poser à un utilisateur en panne ?": "Méthode QQOQCP : Qui (impact), Quoi (description précise du symptôme), Où (poste, salle), Quand (depuis quand, quelle action déclenche), Comment (message d'erreur), Pourquoi (changement récent ?). Toujours demander : 'Avez-vous redémarré ?' et 'Y a-t-il un message à l'écran ?'.",
+  "Quelles questions poser à un utilisateur en premier ?": "Méthode QQOQCP/CHEMIN : 1) Quel est le problème exact ? 2) Depuis quand ? 3) Qu'avez-vous fait juste avant ? 4) Avez-vous redémarré ? Ces 4 questions permettent de cadrer 80% des cas. Toujours noter les réponses dans le ticket.",
+  "Quelles sont les 4 étapes de résolution d'un incident (ITIL) ?": "1) DÉTECTION (l'incident remonte par appel, mail, supervision), 2) DIAGNOSTIC (analyse, identifier la cause racine), 3) RÉSOLUTION (appliquer le correctif, valider), 4) CLÔTURE (informer l'utilisateur, documenter, fermer le ticket). Sauter une étape = problème qui revient.",
+  "Quelles sont les 4 étapes du traitement d'un incident ?": "1) DÉTECTION (l'incident est signalé/détecté), 2) DIAGNOSTIC (analyse, identification de la cause), 3) RÉSOLUTION (correction du problème), 4) CLÔTURE (validation avec l'utilisateur, documentation, fermeture du ticket). Sauter une étape = ticket mal traité, problème qui revient.",
+  "Quelles sont les plages d'adresses IP privées ?": "RFC 1918 — les 3 plages réservées au privé (non routées sur Internet) : 10.0.0.0/8 (classe A, 16M IPs), 172.16.0.0/12 (classe B, 1M IPs), 192.168.0.0/16 (classe C, 65K IPs). Ce sont CES adresses qui sont dans tes réseaux d'entreprise. Pour aller sur Internet, le NAT traduit en IP publique.",
+  "Quels logiciels de sauvegarde connais-tu ?": "Veeam (#1 pour VM), Windows Server Backup (gratuit, basique), Acronis (entreprise), Bacula (libre, complet), rsync (Linux, syncho fichiers), Duplicati (libre cross-platform), Cohesity/Rubrik (haut de gamme). Veeam est devenu le standard pour les environnements virtualisés.",
+  "Quels ports retenir absolument pour le TSSR ?": "Les incontournables : 22 (SSH), 53 (DNS), 80/443 (HTTP/HTTPS), 25 (SMTP), 110 (POP3), 143 (IMAP), 389 (LDAP), 88 (Kerberos), 3389 (RDP), 67/68 (DHCP), 161 (SNMP), 445 (SMB), 21 (FTP), 23 (Telnet), 123 (NTP). Ils tombent quasi-systématiquement à l'examen.",
+  "Quels ports utilise DHCP ?": "DHCP utilise 2 ports UDP : 67 (serveur, écoute les demandes) et 68 (client, reçoit les réponses). DHCP attribue automatiquement IP, masque, passerelle et DNS aux postes du réseau. Indispensable pour ne pas configurer chaque PC à la main.",
+  "Quels ports utilise SQL Server ?": "SQL Server utilise le port 1433 en TCP par défaut. À ne jamais exposer sur Internet — toujours derrière un firewall, accessible uniquement depuis les serveurs applicatifs. Une instance nommée peut utiliser un port dynamique avec le service SQL Browser sur 1434.",
+  "Quels sont les 3 niveaux de support ?": "N1 = premier contact (réinitialiser un mot de passe, déblocages simples). N2 = analyse plus poussée (config, escalade aux experts). N3 = experts métier ou fournisseurs (problèmes complexes, bugs logiciels). L'escalade se fait quand le niveau précédent atteint sa limite — toujours documenter avant d'escalader.",
+  "Quels sont les 3 types de sauvegarde ?": "1) COMPLÈTE : tout est sauvegardé (long, beaucoup d'espace, mais restauration simple). 2) DIFFÉRENTIELLE : ce qui a changé depuis la DERNIÈRE COMPLÈTE (taille croissante, restauration = complète + dernière diff). 3) INCRÉMENTALE : ce qui a changé depuis la DERNIÈRE SAUVEGARDE (petite, mais restauration = complète + TOUTES les incr).",
+  "Quels sont les droits NTFS de base ?": "Les 5 niveaux : Lecture (consulter), Écriture (créer/modifier), Lecture+Exécution (lire et lancer), Modification (incluant suppression), Contrôle Total (incluant changer les droits eux-mêmes). En détail, il y a 14 droits 'spéciaux'. Bonne pratique : on n'attribue Contrôle Total qu'aux admins.",
+  "Quels sont les principaux enregistrements DNS ?": "A (nom → IPv4), AAAA (nom → IPv6), CNAME (alias d'un autre nom), MX (serveur mail du domaine), NS (serveur DNS faisant autorité), PTR (IP → nom, recherche inversée), TXT (texte libre, souvent SPF/DKIM/DMARC pour antispam). Chacun a un rôle précis à connaître.",
+  "Quels sont les protocoles de la couche 7 ?": "La couche Application regroupe les protocoles 'utilisateurs' : HTTP/HTTPS (web), SMTP (envoi mail), POP3/IMAP (réception mail), FTP (fichiers), DNS (résolution noms), DHCP (config IP), SSH (connexion distante), Telnet, SNMP. Ce sont les protocoles que tu manipules au quotidien.",
+  "À quelle couche OSI travaille un routeur ?": "Le routeur travaille en couche 3 (Réseau). Il analyse les adresses IP des paquets pour décider du meilleur chemin entre deux réseaux. Il maintient une 'table de routage' avec les destinations connues et les passerelles à utiliser. Indispensable pour faire communiquer plusieurs réseaux distincts.",
+  "À quelle couche OSI travaille un switch ?": "Le switch travaille en couche 2 (Liaison de données). Il analyse les adresses MAC des trames pour décider sur quel port envoyer le trafic. Il maintient une 'table MAC' (correspondance MAC ↔ port) qu'il construit en observant les trames qui passent. Les switches modernes 'L3' peuvent aussi router en couche 3.",
+};
+
+
+const ALL_QUESTIONS = [{"q": "Combien de couches possède le modèle OSI ?", "a": "7 couches : Physique, Liaison, Réseau, Transport, Session, Présentation, Application", "a_clean": "7 couches : Physique, Liaison, Réseau, Transport, Session, Présentation, Application", "tag": "OSI"}, {"q": "Quelle est la couche 1 du modèle OSI ?", "a": "<b>Physique</b> — transmission des bits bruts sur le support (câbles, ondes, fibre)", "a_clean": "Physique — transmission des bits bruts sur le support (câbles, ondes, fibre)", "tag": "OSI"}, {"q": "Quelle est la couche 2 du modèle OSI ?", "a": "<b>Liaison de données</b> — trame, adresse MAC, switch, ARP", "a_clean": "Liaison de données — trame, adresse MAC, switch, ARP", "tag": "OSI"}, {"q": "Quelle est la couche 3 du modèle OSI ?", "a": "<b>Réseau</b> — paquet, adresse IP, routeur, routage", "a_clean": "Réseau — paquet, adresse IP, routeur, routage", "tag": "OSI"}, {"q": "Quelle est la couche 4 du modèle OSI ?", "a": "<b>Transport</b> — segment, TCP (fiable) et UDP (rapide), numéros de port", "a_clean": "Transport — segment, TCP (fiable) et UDP (rapide), numéros de port", "tag": "OSI"}, {"q": "Quelle est la couche 5 du modèle OSI ?", "a": "<b>Session</b> — établit, gère et termine les sessions entre applications", "a_clean": "Session — établit, gère et termine les sessions entre applications", "tag": "OSI"}, {"q": "Quelle est la couche 6 du modèle OSI ?", "a": "<b>Présentation</b> — chiffrement, compression, format des données (JPEG, ASCII, SSL)", "a_clean": "Présentation — chiffrement, compression, format des données (JPEG, ASCII, SSL)", "tag": "OSI"}, {"q": "Quelle est la couche 7 du modèle OSI ?", "a": "<b>Application</b> — interface utilisateur : HTTP, FTP, SMTP, DNS", "a_clean": "Application — interface utilisateur : HTTP, FTP, SMTP, DNS", "tag": "OSI"}, {"q": "Quelle est la différence entre TCP et UDP ?", "a": "<b>TCP</b> = fiable, connexion établie, accusé de réception (HTTP, SSH)<br><b>UDP</b> = rapide, sans connexion, pas d'accusé (DNS, streaming, VoIP)", "a_clean": "TCP = fiable, connexion établie, accusé de réception (HTTP, SSH)UDP = rapide, sans connexion, pas d'accusé (DNS, streaming, VoIP)", "tag": "OSI"}, {"q": "À quelle couche OSI travaille un switch ?", "a": "Couche <b>2 (Liaison)</b> — il utilise les adresses MAC", "a_clean": "Couche 2 (Liaison) — il utilise les adresses MAC", "tag": "OSI"}, {"q": "À quelle couche OSI travaille un routeur ?", "a": "Couche <b>3 (Réseau)</b> — il utilise les adresses IP", "a_clean": "Couche 3 (Réseau) — il utilise les adresses IP", "tag": "OSI"}, {"q": "Quel est le PDU (unité de données) de la couche 2 ?", "a": "La <b>trame</b> (frame)", "a_clean": "La trame (frame)", "tag": "OSI"}, {"q": "Quel est le PDU de la couche 3 ?", "a": "Le <b>paquet</b> (packet)", "a_clean": "Le paquet (packet)", "tag": "OSI"}, {"q": "Quel est le PDU de la couche 4 ?", "a": "Le <b>segment</b> (TCP) ou <b>datagramme</b> (UDP)", "a_clean": "Le segment (TCP) ou datagramme (UDP)", "tag": "OSI"}, {"q": "Quel protocole résout une adresse IP en adresse MAC ?", "a": "<b>ARP</b> (Address Resolution Protocol) — couche 2/3", "a_clean": "ARP (Address Resolution Protocol) — couche 2/3", "tag": "OSI"}, {"q": "Quel port utilise DNS ?", "a": "Port <b>53</b> (TCP et UDP)", "a_clean": "Port 53 (TCP et UDP)", "tag": "Ports"}, {"q": "Quel port utilise HTTP ?", "a": "Port <b>80</b> (TCP)", "a_clean": "Port 80 (TCP)", "tag": "Ports"}, {"q": "Quel port utilise HTTPS ?", "a": "Port <b>443</b> (TCP)", "a_clean": "Port 443 (TCP)", "tag": "Ports"}, {"q": "Quel port utilise SSH ?", "a": "Port <b>22</b> (TCP)", "a_clean": "Port 22 (TCP)", "tag": "Ports"}, {"q": "Quel port utilise FTP (données) ?", "a": "Port <b>20</b> (données) et <b>21</b> (commandes)", "a_clean": "Port 20 (données) et 21 (commandes)", "tag": "Ports"}, {"q": "Quel port utilise SMTP ?", "a": "Port <b>25</b> (TCP) — envoi d'emails", "a_clean": "Port 25 (TCP) — envoi d'emails", "tag": "Ports"}, {"q": "Quel port utilise POP3 ?", "a": "Port <b>110</b> (TCP) — réception d'emails", "a_clean": "Port 110 (TCP) — réception d'emails", "tag": "Ports"}, {"q": "Quel port utilise IMAP ?", "a": "Port <b>143</b> (TCP) — réception d'emails avec synchronisation", "a_clean": "Port 143 (TCP) — réception d'emails avec synchronisation", "tag": "Ports"}, {"q": "Quel port utilise LDAP ?", "a": "Port <b>389</b> (TCP) — annuaire Active Directory", "a_clean": "Port 389 (TCP) — annuaire Active Directory", "tag": "Ports"}, {"q": "Quel port utilise LDAPS (sécurisé) ?", "a": "Port <b>636</b> (TCP)", "a_clean": "Port 636 (TCP)", "tag": "Ports"}, {"q": "Quel port utilise RDP ?", "a": "Port <b>3389</b> (TCP) — Bureau à distance Windows", "a_clean": "Port 3389 (TCP) — Bureau à distance Windows", "tag": "Ports"}, {"q": "Quel port utilise DHCP ?", "a": "Ports <b>67</b> (serveur) et <b>68</b> (client) — UDP", "a_clean": "Ports 67 (serveur) et 68 (client) — UDP", "tag": "Ports"}, {"q": "Quel port utilise SNMP ?", "a": "Port <b>161</b> (UDP) — supervision réseau", "a_clean": "Port 161 (UDP) — supervision réseau", "tag": "Ports"}, {"q": "Quel port utilise Kerberos ?", "a": "Port <b>88</b> (TCP/UDP) — authentification Active Directory", "a_clean": "Port 88 (TCP/UDP) — authentification Active Directory", "tag": "Ports"}, {"q": "Quel port utilise Telnet ?", "a": "Port <b>23</b> (TCP) — accès distant non sécurisé (à éviter)", "a_clean": "Port 23 (TCP) — accès distant non sécurisé (à éviter)", "tag": "Ports"}, {"q": "Quel port utilise TFTP ?", "a": "Port <b>69</b> (UDP) — transfert de fichiers simplifié", "a_clean": "Port 69 (UDP) — transfert de fichiers simplifié", "tag": "Ports"}, {"q": "Quel port utilise NTP ?", "a": "Port <b>123</b> (UDP) — synchronisation de l'heure", "a_clean": "Port 123 (UDP) — synchronisation de l'heure", "tag": "Ports"}, {"q": "Quel port utilise SMB/CIFS ?", "a": "Port <b>445</b> (TCP) — partage de fichiers Windows", "a_clean": "Port 445 (TCP) — partage de fichiers Windows", "tag": "Ports"}, {"q": "Quel port utilise MySQL ?", "a": "Port <b>3306</b> (TCP)", "a_clean": "Port 3306 (TCP)", "tag": "Ports"}, {"q": "Quel port utilise RADIUS ?", "a": "Ports <b>1812</b> (authentification) et <b>1813</b> (comptabilité)", "a_clean": "Ports 1812 (authentification) et 1813 (comptabilité)", "tag": "Ports"}, {"q": "Quelle est la différence entre POP3 et IMAP ?", "a": "<b>POP3</b> : télécharge les mails et les supprime du serveur<br><b>IMAP</b> : synchronise les mails (restent sur le serveur)", "a_clean": "POP3 : télécharge les mails et les supprime du serveurIMAP : synchronise les mails (restent sur le serveur)", "tag": "Ports"}, {"q": "Qu'est-ce qu'un ticket d'incident ?", "a": "Un document qui trace un <b>problème signalé</b> par un utilisateur, de l'ouverture à la résolution", "a_clean": "Un document qui trace un problème signalé par un utilisateur, de l'ouverture à la résolution", "tag": "C1-Support"}, {"q": "Quelle est la différence entre un incident et une demande ?", "a": "<b>Incident</b> = interruption non planifiée du service (ça ne marche plus)<br><b>Demande</b> = requête standard (nouveau compte, nouveau logiciel)", "a_clean": "Incident = interruption non planifiée du service (ça ne marche plus)Demande = requête standard (nouveau compte, nouveau logiciel)", "tag": "C1-Support"}, {"q": "Quels sont les 3 niveaux de support ?", "a": "<b>N1</b> : support de base, incidents simples<br><b>N2</b> : support technique avancé<br><b>N3</b> : experts, éditeurs, administrateurs", "a_clean": "N1 : support de base, incidents simplesN2 : support technique avancéN3 : experts, éditeurs, administrateurs", "tag": "C1-Support"}, {"q": "Qu'est-ce que GLPI ?", "a": "Logiciel libre de <b>gestion de parc informatique et de tickets</b> (helpdesk), souvent couplé avec OCS Inventory", "a_clean": "Logiciel libre de gestion de parc informatique et de tickets (helpdesk), souvent couplé avec OCS Inventory", "tag": "C1-Support"}, {"q": "Que signifie ITIL ?", "a": "<b>Information Technology Infrastructure Library</b> — référentiel de bonnes pratiques pour la gestion des services IT", "a_clean": "Information Technology Infrastructure Library — référentiel de bonnes pratiques pour la gestion des services IT", "tag": "C1-Support"}, {"q": "Quelles sont les 4 étapes de résolution d'un incident (ITIL) ?", "a": "1. <b>Détection</b> (réception de la demande)<br>2. <b>Diagnostic</b> (analyse du problème)<br>3. <b>Résolution</b> (application de la solution)<br>4. <b>Clôture</b> (documentation et information utilisateur)", "a_clean": "1. Détection (réception de la demande)2. Diagnostic (analyse du problème)3. Résolution (application de la solution)4. Clôture (documentation et information utilisateur)", "tag": "C1-Support"}, {"q": "Quelles questions poser à un utilisateur en premier ?", "a": "1. Quel est le problème exact ?<br>2. Depuis quand ?<br>3. Qu'avez-vous fait juste avant ?<br>4. Avez-vous redémarré ?<br>5. Y a-t-il un message d'erreur ?<br>6. D'autres collègues impactés ?", "a_clean": "1. Quel est le problème exact ?2. Depuis quand ?3. Qu'avez-vous fait juste avant ?4. Avez-vous redémarré ?5. Y a-t-il un message d'erreur ?6. D'autres collègues impactés ?", "tag": "C1-Support"}, {"q": "Qu'est-ce qu'une escalade ?", "a": "<b>Transférer un ticket</b> à un niveau de support supérieur quand on ne peut pas résoudre le problème soi-même", "a_clean": "Transférer un ticket à un niveau de support supérieur quand on ne peut pas résoudre le problème soi-même", "tag": "C1-Support"}, {"q": "Qu'est-ce qu'un SLA ?", "a": "<b>Service Level Agreement</b> — contrat définissant le niveau de service attendu (temps de réponse, disponibilité)", "a_clean": "Service Level Agreement — contrat définissant le niveau de service attendu (temps de réponse, disponibilité)", "tag": "C1-Support"}, {"q": "Qu'est-ce que l'Active Directory (AD) ?", "a": "Service d'annuaire <b>Microsoft</b> qui centralise la gestion des utilisateurs, groupes, ordinateurs et politiques d'un réseau", "a_clean": "Service d'annuaire Microsoft qui centralise la gestion des utilisateurs, groupes, ordinateurs et politiques d'un réseau", "tag": "C2-Windows"}, {"q": "Qu'est-ce qu'un contrôleur de domaine (DC) ?", "a": "Serveur qui héberge l'<b>Active Directory</b> et authentifie les utilisateurs du domaine", "a_clean": "Serveur qui héberge l'Active Directory et authentifie les utilisateurs du domaine", "tag": "C2-Windows"}, {"q": "Qu'est-ce qu'une forêt Active Directory ?", "a": "Le <b>niveau le plus haut</b> de l'organisation AD — contient un ou plusieurs domaines qui partagent un schéma commun", "a_clean": "Le niveau le plus haut de l'organisation AD — contient un ou plusieurs domaines qui partagent un schéma commun", "tag": "C2-Windows"}, {"q": "Qu'est-ce qu'une GPO ?", "a": "<b>Group Policy Object</b> — règle appliquée automatiquement aux utilisateurs/ordinateurs d'un domaine (ex : fond d'écran, mot de passe, lecteur réseau)", "a_clean": "Group Policy Object — règle appliquée automatiquement aux utilisateurs/ordinateurs d'un domaine (ex : fond d'écran, mot de passe, lecteur réseau)", "tag": "C2-Windows"}, {"q": "Où crée-t-on les GPO ?", "a": "Dans la console <b>GPMC</b> (Group Policy Management Console) — gpmc.msc", "a_clean": "Dans la console GPMC (Group Policy Management Console) — gpmc.msc", "tag": "C2-Windows"}, {"q": "Quelle commande force l'application des GPO ?", "a": "<b>gpupdate /force</b>", "a_clean": "gpupdate /force", "tag": "C2-Windows"}, {"q": "Quelle commande vérifie les GPO appliquées ?", "a": "<b>gpresult /r</b>", "a_clean": "gpresult /r", "tag": "C2-Windows"}, {"q": "Qu'est-ce qu'une OU (Organizational Unit) ?", "a": "<b>Conteneur logique</b> dans l'AD pour organiser les objets (utilisateurs, groupes, ordinateurs) et y appliquer des GPO", "a_clean": "Conteneur logique dans l'AD pour organiser les objets (utilisateurs, groupes, ordinateurs) et y appliquer des GPO", "tag": "C2-Windows"}, {"q": "Quel est le rôle du serveur DNS dans un domaine AD ?", "a": "Résoudre les <b>noms de domaine en adresses IP</b> — indispensable pour le fonctionnement de l'AD (les clients trouvent le DC via DNS)", "a_clean": "Résoudre les noms de domaine en adresses IP — indispensable pour le fonctionnement de l'AD (les clients trouvent le DC via DNS)", "tag": "C2-Windows"}, {"q": "Quel est le rôle du serveur DHCP ?", "a": "Attribuer automatiquement une <b>adresse IP, masque, passerelle et DNS</b> aux clients du réseau", "a_clean": "Attribuer automatiquement une adresse IP, masque, passerelle et DNS aux clients du réseau", "tag": "C2-Windows"}, {"q": "Que contient un bail DHCP ?", "a": "L'<b>adresse IP attribuée</b>, la <b>durée du bail</b>, le <b>masque de sous-réseau</b>, la <b>passerelle</b> et le <b>DNS</b>", "a_clean": "L'adresse IP attribuée, la durée du bail, le masque de sous-réseau, la passerelle et le DNS", "tag": "C2-Windows"}, {"q": "Qu'est-ce que ADDS ?", "a": "<b>Active Directory Domain Services</b> — le rôle Windows Server qui fournit l'annuaire, l'authentification Kerberos et les GPO", "a_clean": "Active Directory Domain Services — le rôle Windows Server qui fournit l'annuaire, l'authentification Kerberos et les GPO", "tag": "C2-Windows"}, {"q": "Qu'est-ce qu'un profil itinérant ?", "a": "Profil utilisateur stocké sur le <b>serveur</b> et synchronisé à chaque connexion/déconnexion, quel que soit le poste", "a_clean": "Profil utilisateur stocké sur le serveur et synchronisé à chaque connexion/déconnexion, quel que soit le poste", "tag": "C2-Windows"}, {"q": "Quelle commande crée un partage réseau en ligne de commande ?", "a": "<b>net share NomPartage=C:\\Dossier /grant:utilisateur,FULL</b>", "a_clean": "net share NomPartage=C:\\Dossier /grant:utilisateur,FULL", "tag": "C2-Windows"}, {"q": "Quels sont les droits NTFS de base ?", "a": "<b>Lecture</b>, <b>Écriture</b>, <b>Modification</b>, <b>Contrôle total</b>, <b>Lecture et exécution</b>", "a_clean": "Lecture, Écriture, Modification, Contrôle total, Lecture et exécution", "tag": "C2-Windows"}, {"q": "Quelle est la différence entre droits NTFS et droits de partage ?", "a": "<b>NTFS</b> = s'appliquent localement ET via le réseau<br><b>Partage</b> = s'appliquent uniquement via le réseau<br>Le plus restrictif des deux gagne", "a_clean": "NTFS = s'appliquent localement ET via le réseauPartage = s'appliquent uniquement via le réseauLe plus restrictif des deux gagne", "tag": "C2-Windows"}, {"q": "Quelle commande affiche le répertoire courant sous Linux ?", "a": "<b>pwd</b> (print working directory)", "a_clean": "pwd (print working directory)", "tag": "C3-Linux"}, {"q": "Quelle commande liste les fichiers avec détails sous Linux ?", "a": "<b>ls -la</b> (l = détails, a = fichiers cachés)", "a_clean": "ls -la (l = détails, a = fichiers cachés)", "tag": "C3-Linux"}, {"q": "Comment changer les droits d'un fichier sous Linux ?", "a": "<b>chmod</b> — ex : chmod 755 fichier.sh (rwx pour propriétaire, rx pour groupe et autres)", "a_clean": "chmod — ex : chmod 755 fichier.sh (rwx pour propriétaire, rx pour groupe et autres)", "tag": "C3-Linux"}, {"q": "Que signifient les droits 755 ?", "a": "Propriétaire : <b>rwx</b> (7)<br>Groupe : <b>r-x</b> (5)<br>Autres : <b>r-x</b> (5)", "a_clean": "Propriétaire : rwx (7)Groupe : r-x (5)Autres : r-x (5)", "tag": "C3-Linux"}, {"q": "Comment changer le propriétaire d'un fichier ?", "a": "<b>chown utilisateur:groupe fichier</b>", "a_clean": "chown utilisateur:groupe fichier", "tag": "C3-Linux"}, {"q": "Qu'est-ce que SSH ?", "a": "<b>Secure Shell</b> — protocole de connexion à distance chiffrée sur le port 22", "a_clean": "Secure Shell — protocole de connexion à distance chiffrée sur le port 22", "tag": "C3-Linux"}, {"q": "Quelle commande se connecter en SSH ?", "a": "<b>ssh utilisateur@adresse_ip</b>", "a_clean": "ssh utilisateur@adresse_ip", "tag": "C3-Linux"}, {"q": "Qu'est-ce qu'un serveur LAMP ?", "a": "<b>L</b>inux + <b>A</b>pache + <b>M</b>ySQL/MariaDB + <b>P</b>HP — pile de serveur web open source", "a_clean": "Linux + Apache + MySQL/MariaDB + PHP — pile de serveur web open source", "tag": "C3-Linux"}, {"q": "Quel fichier contient les utilisateurs sous Linux ?", "a": "<b>/etc/passwd</b>", "a_clean": "/etc/passwd", "tag": "C3-Linux"}, {"q": "Quel fichier contient les mots de passe hashés sous Linux ?", "a": "<b>/etc/shadow</b> (accessible uniquement par root)", "a_clean": "/etc/shadow (accessible uniquement par root)", "tag": "C3-Linux"}, {"q": "Comment redémarrer un service sous Linux (systemd) ?", "a": "<b>sudo systemctl restart nom_du_service</b>", "a_clean": "sudo systemctl restart nom_du_service", "tag": "C3-Linux"}, {"q": "Comment vérifier le statut d'un service ?", "a": "<b>sudo systemctl status nom_du_service</b>", "a_clean": "sudo systemctl status nom_du_service", "tag": "C3-Linux"}, {"q": "Comment installer un paquet sous Debian/Ubuntu ?", "a": "<b>sudo apt install nom_du_paquet</b>", "a_clean": "sudo apt install nom_du_paquet", "tag": "C3-Linux"}, {"q": "Quelle commande affiche l'espace disque disponible ?", "a": "<b>df -h</b> (h = human readable)", "a_clean": "df -h (h = human readable)", "tag": "C3-Linux"}, {"q": "Quelle commande affiche les processus en cours ?", "a": "<b>ps aux</b> ou <b>top</b> (interactif)", "a_clean": "ps aux ou top (interactif)", "tag": "C3-Linux"}, {"q": "Comment tuer un processus par son PID ?", "a": "<b>kill PID</b> ou <b>kill -9 PID</b> (forcer)", "a_clean": "kill PID ou kill -9 PID (forcer)", "tag": "C3-Linux"}, {"q": "Qu'est-ce qu'une adresse IP ?", "a": "Adresse logique (couche 3) qui identifie un appareil sur un réseau. <b>IPv4</b> = 32 bits (ex: 192.168.1.1), <b>IPv6</b> = 128 bits", "a_clean": "Adresse logique (couche 3) qui identifie un appareil sur un réseau. IPv4 = 32 bits (ex: 192.168.1.1), IPv6 = 128 bits", "tag": "C4-Reseau"}, {"q": "Qu'est-ce qu'un masque de sous-réseau ?", "a": "Détermine la <b>partie réseau</b> et la <b>partie hôte</b> d'une adresse IP. Ex : 255.255.255.0 = /24 = 254 hôtes possibles", "a_clean": "Détermine la partie réseau et la partie hôte d'une adresse IP. Ex : 255.255.255.0 = /24 = 254 hôtes possibles", "tag": "C4-Reseau"}, {"q": "Combien d'hôtes dans un réseau /24 ?", "a": "<b>254 hôtes</b> (256 - adresse réseau - adresse de broadcast)", "a_clean": "254 hôtes (256 - adresse réseau - adresse de broadcast)", "tag": "C4-Reseau"}, {"q": "Combien d'hôtes dans un réseau /16 ?", "a": "<b>65 534 hôtes</b>", "a_clean": "65 534 hôtes", "tag": "C4-Reseau"}, {"q": "Quelles sont les plages d'adresses IP privées ?", "a": "<b>10.0.0.0/8</b> (classe A)<br><b>172.16.0.0/12</b> (classe B)<br><b>192.168.0.0/16</b> (classe C)", "a_clean": "10.0.0.0/8 (classe A)172.16.0.0/12 (classe B)192.168.0.0/16 (classe C)", "tag": "C4-Reseau"}, {"q": "Qu'est-ce que le NAT ?", "a": "<b>Network Address Translation</b> — traduit les adresses IP privées en adresse IP publique pour accéder à Internet", "a_clean": "Network Address Translation — traduit les adresses IP privées en adresse IP publique pour accéder à Internet", "tag": "C4-Reseau"}, {"q": "Qu'est-ce que le PAT ?", "a": "<b>Port Address Translation</b> — variante du NAT qui utilise les numéros de port pour différencier les flux (plusieurs machines derrière une seule IP publique)", "a_clean": "Port Address Translation — variante du NAT qui utilise les numéros de port pour différencier les flux (plusieurs machines derrière une seule IP publique)", "tag": "C4-Reseau"}, {"q": "Qu'est-ce qu'un VLAN ?", "a": "<b>Virtual LAN</b> — segmentation logique d'un réseau physique. Isole les flux, améliore la sécurité et les performances", "a_clean": "Virtual LAN — segmentation logique d'un réseau physique. Isole les flux, améliore la sécurité et les performances", "tag": "C4-Reseau"}, {"q": "Qu'est-ce qu'un trunk (802.1Q) ?", "a": "Lien entre switches qui <b>transporte plusieurs VLANs</b> en ajoutant un tag à chaque trame", "a_clean": "Lien entre switches qui transporte plusieurs VLANs en ajoutant un tag à chaque trame", "tag": "C4-Reseau"}, {"q": "Qu'est-ce que le routage inter-VLAN ?", "a": "Permettre la communication entre VLANs différents via un <b>routeur</b> ou un <b>switch de couche 3</b>", "a_clean": "Permettre la communication entre VLANs différents via un routeur ou un switch de couche 3", "tag": "C4-Reseau"}, {"q": "Qu'est-ce qu'une route par défaut ?", "a": "Route utilisée quand <b>aucune route spécifique</b> ne correspond à la destination. Pointe vers la passerelle de sortie (0.0.0.0/0)", "a_clean": "Route utilisée quand aucune route spécifique ne correspond à la destination. Pointe vers la passerelle de sortie (0.0.0.0/0)", "tag": "C4-Reseau"}, {"q": "Quelle commande affiche la table de routage sous Windows ?", "a": "<b>route print</b>", "a_clean": "route print", "tag": "C4-Reseau"}, {"q": "Quelle commande affiche la table de routage sous Linux ?", "a": "<b>ip route show</b> ou <b>route -n</b>", "a_clean": "ip route show ou route -n", "tag": "C4-Reseau"}, {"q": "Quelle commande teste la connectivité réseau ?", "a": "<b>ping adresse_ip</b> (utilise le protocole ICMP)", "a_clean": "ping adresse_ip (utilise le protocole ICMP)", "tag": "C4-Reseau"}, {"q": "Quelle commande trace le chemin vers une destination ?", "a": "<b>tracert</b> (Windows) ou <b>traceroute</b> (Linux)", "a_clean": "tracert (Windows) ou traceroute (Linux)", "tag": "C4-Reseau"}, {"q": "Quelle commande affiche la configuration réseau sous Windows ?", "a": "<b>ipconfig /all</b>", "a_clean": "ipconfig /all", "tag": "C4-Reseau"}, {"q": "Quelle commande affiche la configuration réseau sous Linux ?", "a": "<b>ip a</b> ou <b>ifconfig</b> (ancien)", "a_clean": "ip a ou ifconfig (ancien)", "tag": "C4-Reseau"}, {"q": "Qu'est-ce qu'un hyperviseur ?", "a": "Logiciel qui crée et gère des <b>machines virtuelles</b> (VM) sur un serveur physique", "a_clean": "Logiciel qui crée et gère des machines virtuelles (VM) sur un serveur physique", "tag": "C5-Virtualisation"}, {"q": "Quelle différence entre hyperviseur Type 1 et Type 2 ?", "a": "<b>Type 1 (bare-metal)</b> : directement sur le matériel (ESXi, Hyper-V Server, Proxmox)<br><b>Type 2 (hosted)</b> : sur un OS existant (VirtualBox, VMware Workstation)", "a_clean": "Type 1 (bare-metal) : directement sur le matériel (ESXi, Hyper-V Server, Proxmox)Type 2 (hosted) : sur un OS existant (VirtualBox, VMware Workstation)", "tag": "C5-Virtualisation"}, {"q": "Qu'est-ce que la haute disponibilité (HA) ?", "a": "Capacité d'un système à <b>rester opérationnel en cas de panne</b> — redondance des serveurs, basculement automatique", "a_clean": "Capacité d'un système à rester opérationnel en cas de panne — redondance des serveurs, basculement automatique", "tag": "C5-Virtualisation"}, {"q": "Qu'est-ce qu'un cluster ?", "a": "Groupe de serveurs qui <b>travaillent ensemble</b> comme une seule entité pour assurer la HA ou répartir la charge", "a_clean": "Groupe de serveurs qui travaillent ensemble comme une seule entité pour assurer la HA ou répartir la charge", "tag": "C5-Virtualisation"}, {"q": "Qu'est-ce que la migration à chaud (vMotion) ?", "a": "Déplacer une VM d'un serveur physique à un autre <b>sans interruption de service</b>", "a_clean": "Déplacer une VM d'un serveur physique à un autre sans interruption de service", "tag": "C5-Virtualisation"}, {"q": "Qu'est-ce que IaaS ?", "a": "<b>Infrastructure as a Service</b> — le fournisseur gère le matériel, tu gères l'OS et les applications (ex : AWS EC2, Azure VM)", "a_clean": "Infrastructure as a Service — le fournisseur gère le matériel, tu gères l'OS et les applications (ex : AWS EC2, Azure VM)", "tag": "C5-Virtualisation"}, {"q": "Qu'est-ce que PaaS ?", "a": "<b>Platform as a Service</b> — le fournisseur gère matériel + OS + runtime, tu gères l'application (ex : Azure App Service, Heroku)", "a_clean": "Platform as a Service — le fournisseur gère matériel + OS + runtime, tu gères l'application (ex : Azure App Service, Heroku)", "tag": "C5-Virtualisation"}, {"q": "Qu'est-ce que SaaS ?", "a": "<b>Software as a Service</b> — tout est géré par le fournisseur, tu utilises l'application (ex : Office 365, Gmail, Salesforce)", "a_clean": "Software as a Service — tout est géré par le fournisseur, tu utilises l'application (ex : Office 365, Gmail, Salesforce)", "tag": "C5-Virtualisation"}, {"q": "Quelle différence entre cloud public, privé et hybride ?", "a": "<b>Public</b> : mutualisé, accessible via Internet (AWS, Azure)<br><b>Privé</b> : dédié à une organisation<br><b>Hybride</b> : combinaison des deux", "a_clean": "Public : mutualisé, accessible via Internet (AWS, Azure)Privé : dédié à une organisationHybride : combinaison des deux", "tag": "C5-Virtualisation"}, {"q": "Qu'est-ce qu'un snapshot ?", "a": "<b>Photo instantanée</b> de l'état d'une VM à un moment précis — permet de revenir en arrière", "a_clean": "Photo instantanée de l'état d'une VM à un moment précis — permet de revenir en arrière", "tag": "C5-Virtualisation"}, {"q": "Qu'est-ce qu'un conteneur (Docker) ?", "a": "Application isolée avec ses dépendances, plus léger qu'une VM car <b>partage le noyau de l'OS hôte</b>", "a_clean": "Application isolée avec ses dépendances, plus léger qu'une VM car partage le noyau de l'OS hôte", "tag": "C5-Virtualisation"}, {"q": "Qu'est-ce qu'un script Bash ?", "a": "Programme écrit en langage <b>Bash</b> pour automatiser des tâches sous Linux. Commence par <b>#!/bin/bash</b>", "a_clean": "Programme écrit en langage Bash pour automatiser des tâches sous Linux. Commence par #!/bin/bash", "tag": "C6-Scripts"}, {"q": "Comment rendre un script exécutable sous Linux ?", "a": "<b>chmod +x script.sh</b>", "a_clean": "chmod +x script.sh", "tag": "C6-Scripts"}, {"q": "Qu'est-ce qu'une variable en Bash ?", "a": "Stocke une valeur. Déclaration : <b>NOM=\"valeur\"</b><br>Lecture : <b>$NOM</b> ou <b>${NOM}</b>", "a_clean": "Stocke une valeur. Déclaration : NOM=\"valeur\"Lecture : $NOM ou ${NOM}", "tag": "C6-Scripts"}, {"q": "Comment écrire une boucle for en Bash ?", "a": "<b>for i in 1 2 3; do echo $i; done</b>", "a_clean": "for i in 1 2 3; do echo $i; done", "tag": "C6-Scripts"}, {"q": "Comment écrire une condition if en Bash ?", "a": "<b>if [ condition ]; then<br>&nbsp;&nbsp;commande<br>fi</b>", "a_clean": "if [ condition ]; then&nbsp;&nbsp;commandefi", "tag": "C6-Scripts"}, {"q": "Qu'est-ce qu'un script PowerShell ?", "a": "Programme d'automatisation sous <b>Windows</b>. Extension <b>.ps1</b>. Basé sur des objets .NET", "a_clean": "Programme d'automatisation sous Windows. Extension .ps1. Basé sur des objets .NET", "tag": "C6-Scripts"}, {"q": "Comment lister les fichiers en PowerShell ?", "a": "<b>Get-ChildItem</b> (alias : ls, dir, gci)", "a_clean": "Get-ChildItem (alias : ls, dir, gci)", "tag": "C6-Scripts"}, {"q": "Comment créer un utilisateur AD en PowerShell ?", "a": "<b>New-ADUser -Name \"Jean\" -SamAccountName \"jean\" -Enabled $true</b>", "a_clean": "New-ADUser -Name \"Jean\" -SamAccountName \"jean\" -Enabled $true", "tag": "C6-Scripts"}, {"q": "Qu'est-ce qu'une tâche Cron ?", "a": "Tâche <b>planifiée automatiquement</b> sous Linux. Configurée dans <b>crontab -e</b>", "a_clean": "Tâche planifiée automatiquement sous Linux. Configurée dans crontab -e", "tag": "C6-Scripts"}, {"q": "Que signifie \"*/5 * * * *\" en cron ?", "a": "Exécuter la tâche <b>toutes les 5 minutes</b>, chaque heure, chaque jour", "a_clean": "Exécuter la tâche toutes les 5 minutes, chaque heure, chaque jour", "tag": "C6-Scripts"}, {"q": "Quel est le format d'une ligne crontab ?", "a": "<b>minute heure jour_du_mois mois jour_de_semaine commande</b>", "a_clean": "minute heure jour_du_mois mois jour_de_semaine commande", "tag": "C6-Scripts"}, {"q": "Comment planifier une tâche sous Windows (GUI) ?", "a": "<b>Planificateur de tâches</b> — taskschd.msc", "a_clean": "Planificateur de tâches — taskschd.msc", "tag": "C6-Scripts"}, {"q": "Comment planifier une tâche sous Windows (CLI) ?", "a": "<b>schtasks /create /tn \"NomTache\" /tr \"commande\" /sc daily /st 08:00</b>", "a_clean": "schtasks /create /tn \"NomTache\" /tr \"commande\" /sc daily /st 08:00", "tag": "C6-Scripts"}, {"q": "Qu'est-ce qu'un firewall (pare-feu) ?", "a": "Dispositif qui <b>filtre le trafic réseau</b> entrant et sortant selon des règles définies", "a_clean": "Dispositif qui filtre le trafic réseau entrant et sortant selon des règles définies", "tag": "C7-Securite"}, {"q": "Quelle différence entre pare-feu réseau et WAF ?", "a": "<b>Pare-feu réseau</b> : couches 3/4 (IP, ports)<br><b>WAF</b> (Web Application Firewall) : couche 7 (requêtes HTTP, SQL injection)", "a_clean": "Pare-feu réseau : couches 3/4 (IP, ports)WAF (Web Application Firewall) : couche 7 (requêtes HTTP, SQL injection)", "tag": "C7-Securite"}, {"q": "Qu'est-ce qu'un proxy ?", "a": "Serveur intermédiaire qui <b>filtre et relaie les requêtes web</b> des utilisateurs — cache leur IP, filtre les contenus", "a_clean": "Serveur intermédiaire qui filtre et relaie les requêtes web des utilisateurs — cache leur IP, filtre les contenus", "tag": "C7-Securite"}, {"q": "Qu'est-ce qu'une DMZ ?", "a": "<b>Zone Démilitarisée</b> — réseau tampon entre Internet et le réseau interne, héberge les serveurs accessibles depuis l'extérieur", "a_clean": "Zone Démilitarisée — réseau tampon entre Internet et le réseau interne, héberge les serveurs accessibles depuis l'extérieur", "tag": "C7-Securite"}, {"q": "Qu'est-ce qu'un VPN ?", "a": "<b>Virtual Private Network</b> — tunnel chiffré à travers Internet pour sécuriser les communications", "a_clean": "Virtual Private Network — tunnel chiffré à travers Internet pour sécuriser les communications", "tag": "C7-Securite"}, {"q": "Quelle différence entre VPN client-to-site et site-to-site ?", "a": "<b>Client-to-site</b> : un utilisateur distant se connecte à l'entreprise<br><b>Site-to-site</b> : deux réseaux d'entreprise reliés en permanence", "a_clean": "Client-to-site : un utilisateur distant se connecte à l'entrepriseSite-to-site : deux réseaux d'entreprise reliés en permanence", "tag": "C7-Securite"}, {"q": "Quelle différence entre chiffrement symétrique et asymétrique ?", "a": "<b>Symétrique</b> : 1 seule clé (rapide, gros volumes) — AES<br><b>Asymétrique</b> : 2 clés (publique + privée, plus sûr) — RSA", "a_clean": "Symétrique : 1 seule clé (rapide, gros volumes) — AESAsymétrique : 2 clés (publique + privée, plus sûr) — RSA", "tag": "C7-Securite"}, {"q": "Qu'est-ce qu'un certificat SSL/TLS ?", "a": "Certificat qui <b>authentifie un site web</b> et <b>chiffre les échanges</b> entre navigateur et serveur (cadenas HTTPS)", "a_clean": "Certificat qui authentifie un site web et chiffre les échanges entre navigateur et serveur (cadenas HTTPS)", "tag": "C7-Securite"}, {"q": "Qu'est-ce que le MFA ?", "a": "<b>Multi-Factor Authentication</b> — exige au moins 2 preuves d'identité : ce que l'on sait (mot de passe) + ce que l'on possède (téléphone, badge)", "a_clean": "Multi-Factor Authentication — exige au moins 2 preuves d'identité : ce que l'on sait (mot de passe) + ce que l'on possède (téléphone, badge)", "tag": "C7-Securite"}, {"q": "Quelle différence entre IDS et IPS ?", "a": "<b>IDS</b> (détection) : surveille et <b>alerte</b> en cas d'intrusion<br><b>IPS</b> (prévention) : surveille et <b>bloque automatiquement</b> l'attaque", "a_clean": "IDS (détection) : surveille et alerte en cas d'intrusionIPS (prévention) : surveille et bloque automatiquement l'attaque", "tag": "C7-Securite"}, {"q": "Qu'est-ce que WPA2/WPA3 Enterprise ?", "a": "Sécurité Wi-Fi avec <b>authentification individuelle</b> (identifiants personnels reliés à l'AD via RADIUS) au lieu d'un mot de passe partagé", "a_clean": "Sécurité Wi-Fi avec authentification individuelle (identifiants personnels reliés à l'AD via RADIUS) au lieu d'un mot de passe partagé", "tag": "C7-Securite"}, {"q": "Qu'est-ce que le filtrage MAC ?", "a": "Autoriser uniquement les appareils dont l'<b>adresse MAC</b> (identifiant unique de la carte réseau) est dans la liste blanche", "a_clean": "Autoriser uniquement les appareils dont l'adresse MAC (identifiant unique de la carte réseau) est dans la liste blanche", "tag": "C7-Securite"}, {"q": "Qu'est-ce que le filtrage URL ?", "a": "Bloquer l'accès à des <b>sites web</b> dangereux ou non autorisés via une liste noire ou catégories", "a_clean": "Bloquer l'accès à des sites web dangereux ou non autorisés via une liste noire ou catégories", "tag": "C7-Securite"}, {"q": "Qu'est-ce qu'une ACL (Access Control List) ?", "a": "Liste de règles sur un routeur/switch qui <b>autorise ou refuse le trafic</b> selon l'IP source, destination, port, protocole", "a_clean": "Liste de règles sur un routeur/switch qui autorise ou refuse le trafic selon l'IP source, destination, port, protocole", "tag": "C7-Securite"}, {"q": "Qu'est-ce que la journalisation (logging) ?", "a": "Enregistrement automatique des <b>événements système et réseau</b> dans des journaux (logs) pour audit et diagnostic", "a_clean": "Enregistrement automatique des événements système et réseau dans des journaux (logs) pour audit et diagnostic", "tag": "C7-Securite"}, {"q": "Qu'est-ce que la règle de sauvegarde 3-2-1 ?", "a": "<b>3</b> copies des données, sur <b>2</b> supports différents, dont <b>1</b> hors site (offsite)", "a_clean": "3 copies des données, sur 2 supports différents, dont 1 hors site (offsite)", "tag": "C8-Sauvegardes"}, {"q": "Quels sont les 3 types de sauvegarde ?", "a": "<b>Complète</b> : tout est sauvegardé<br><b>Différentielle</b> : ce qui a changé depuis la dernière complète<br><b>Incrémentale</b> : ce qui a changé depuis la dernière sauvegarde (quelle qu'elle soit)", "a_clean": "Complète : tout est sauvegardéDifférentielle : ce qui a changé depuis la dernière complèteIncrémentale : ce qui a changé depuis la dernière sauvegarde (quelle qu'elle soit)", "tag": "C8-Sauvegardes"}, {"q": "Qu'est-ce que le RTO ?", "a": "<b>Recovery Time Objective</b> — temps maximum acceptable pour restaurer le service après une panne", "a_clean": "Recovery Time Objective — temps maximum acceptable pour restaurer le service après une panne", "tag": "C8-Sauvegardes"}, {"q": "Qu'est-ce que le RPO ?", "a": "<b>Recovery Point Objective</b> — quantité maximale de données qu'on accepte de perdre (ex : RPO 1h = on peut perdre 1h de données)", "a_clean": "Recovery Point Objective — quantité maximale de données qu'on accepte de perdre (ex : RPO 1h = on peut perdre 1h de données)", "tag": "C8-Sauvegardes"}, {"q": "Qu'est-ce qu'un PRA ?", "a": "<b>Plan de Reprise d'Activité</b> — procédures pour reprendre l'activité après un sinistre majeur (incendie, inondation...)", "a_clean": "Plan de Reprise d'Activité — procédures pour reprendre l'activité après un sinistre majeur (incendie, inondation...)", "tag": "C8-Sauvegardes"}, {"q": "Qu'est-ce qu'un PCA ?", "a": "<b>Plan de Continuité d'Activité</b> — maintenir l'activité PENDANT le sinistre (plus exigeant que le PRA)", "a_clean": "Plan de Continuité d'Activité — maintenir l'activité PENDANT le sinistre (plus exigeant que le PRA)", "tag": "C8-Sauvegardes"}, {"q": "Quelle différence entre PRA et PCA ?", "a": "<b>PRA</b> = on accepte une interruption et on restaure<br><b>PCA</b> = zéro interruption, le service continue même pendant la panne", "a_clean": "PRA = on accepte une interruption et on restaurePCA = zéro interruption, le service continue même pendant la panne", "tag": "C8-Sauvegardes"}, {"q": "Quelle différence entre sauvegarde incrémentale et différentielle ?", "a": "<b>Incrémentale</b> : sauvegarde depuis la <b>dernière sauvegarde</b> (rapide mais restauration longue)<br><b>Différentielle</b> : depuis la <b>dernière complète</b> (plus lourde mais restauration rapide)", "a_clean": "Incrémentale : sauvegarde depuis la dernière sauvegarde (rapide mais restauration longue)Différentielle : depuis la dernière complète (plus lourde mais restauration rapide)", "tag": "C8-Sauvegardes"}, {"q": "Quels logiciels de sauvegarde connais-tu ?", "a": "<b>Veeam</b> (VM), <b>Windows Server Backup</b>, <b>Acronis</b>, <b>Bacula</b> (libre), <b>rsync</b> (Linux)", "a_clean": "Veeam (VM), Windows Server Backup, Acronis, Bacula (libre), rsync (Linux)", "tag": "C8-Sauvegardes"}, {"q": "Qu'est-ce que le RAID 1 ?", "a": "<b>Miroir</b> — les données sont dupliquées sur 2 disques identiques. Tolérance à la panne d'1 disque", "a_clean": "Miroir — les données sont dupliquées sur 2 disques identiques. Tolérance à la panne d'1 disque", "tag": "C8-Sauvegardes"}, {"q": "Qu'est-ce que le RAID 5 ?", "a": "<b>Striping avec parité</b> — données réparties sur 3+ disques avec parité. Tolérance à la panne d'1 disque, bon compromis performance/sécurité", "a_clean": "Striping avec parité — données réparties sur 3+ disques avec parité. Tolérance à la panne d'1 disque, bon compromis performance/sécurité", "tag": "C8-Sauvegardes"}, {"q": "Qu'est-ce que PXE ?", "a": "<b>Preboot eXecution Environment</b> — permet de démarrer un ordinateur via le réseau pour installer un OS sans clé USB ni DVD", "a_clean": "Preboot eXecution Environment — permet de démarrer un ordinateur via le réseau pour installer un OS sans clé USB ni DVD", "tag": "C9-Deploiement"}, {"q": "Qu'est-ce que WDS ?", "a": "<b>Windows Deployment Services</b> — rôle Windows Server pour déployer des images Windows via PXE", "a_clean": "Windows Deployment Services — rôle Windows Server pour déployer des images Windows via PXE", "tag": "C9-Deploiement"}, {"q": "Qu'est-ce que MDT ?", "a": "<b>Microsoft Deployment Toolkit</b> — outil gratuit pour créer des séquences de déploiement automatisées (OS + pilotes + logiciels)", "a_clean": "Microsoft Deployment Toolkit — outil gratuit pour créer des séquences de déploiement automatisées (OS + pilotes + logiciels)", "tag": "C9-Deploiement"}, {"q": "Qu'est-ce qu'un fichier de réponses (Unattend.xml) ?", "a": "Fichier XML qui <b>automatise les réponses</b> pendant l'installation Windows (nom machine, langue, partitions, licence...)", "a_clean": "Fichier XML qui automatise les réponses pendant l'installation Windows (nom machine, langue, partitions, licence...)", "tag": "C9-Deploiement"}, {"q": "Qu'est-ce que WSUS ?", "a": "<b>Windows Server Update Services</b> — serveur qui centralise le <b>téléchargement et la distribution des mises à jour</b> Microsoft", "a_clean": "Windows Server Update Services — serveur qui centralise le téléchargement et la distribution des mises à jour Microsoft", "tag": "C9-Deploiement"}, {"q": "Qu'est-ce qu'un MDM ?", "a": "<b>Mobile Device Management</b> — solution pour gérer les appareils mobiles à distance (smartphones, tablettes) : sécurité, apps, configuration", "a_clean": "Mobile Device Management — solution pour gérer les appareils mobiles à distance (smartphones, tablettes) : sécurité, apps, configuration", "tag": "C9-Deploiement"}, {"q": "Qu'est-ce qu'une image master ?", "a": "Image système <b>de référence</b> contenant l'OS configuré + pilotes + logiciels standards, utilisée pour cloner sur tous les postes", "a_clean": "Image système de référence contenant l'OS configuré + pilotes + logiciels standards, utilisée pour cloner sur tous les postes", "tag": "C9-Deploiement"}, {"q": "Qu'est-ce que Sysprep ?", "a": "Outil Microsoft qui <b>généralise une image Windows</b> en supprimant les données uniques (SID, nom machine) avant le clonage", "a_clean": "Outil Microsoft qui généralise une image Windows en supprimant les données uniques (SID, nom machine) avant le clonage", "tag": "C9-Deploiement"}, {"q": "Quelle différence entre image thick et thin ?", "a": "<b>Thick</b> : image complète avec OS + toutes les apps (gros fichier)<br><b>Thin</b> : image minimale, les apps sont installées après le déploiement", "a_clean": "Thick : image complète avec OS + toutes les apps (gros fichier)Thin : image minimale, les apps sont installées après le déploiement", "tag": "C9-Deploiement"}, {"q": "Qu'est-ce que le WOL ?", "a": "<b>Wake on LAN</b> — allumer un ordinateur à distance via un paquet réseau \"magic packet\"", "a_clean": "Wake on LAN — allumer un ordinateur à distance via un paquet réseau \"magic packet\"", "tag": "C9-Deploiement"}, {"q": "Comment dit-on \"réseau\" en anglais ?", "a": "<b>Network</b>", "a_clean": "Network", "tag": "Anglais"}, {"q": "Comment dit-on \"pare-feu\" en anglais ?", "a": "<b>Firewall</b>", "a_clean": "Firewall", "tag": "Anglais"}, {"q": "Comment dit-on \"commutateur\" en anglais ?", "a": "<b>Switch</b>", "a_clean": "Switch", "tag": "Anglais"}, {"q": "Comment dit-on \"routeur\" en anglais ?", "a": "<b>Router</b>", "a_clean": "Router", "tag": "Anglais"}, {"q": "Comment dit-on \"sauvegarde\" en anglais ?", "a": "<b>Backup</b>", "a_clean": "Backup", "tag": "Anglais"}, {"q": "Comment dit-on \"restauration\" en anglais ?", "a": "<b>Restore</b>", "a_clean": "Restore", "tag": "Anglais"}, {"q": "Comment dit-on \"mise à jour\" en anglais ?", "a": "<b>Update</b> (correctifs) / <b>Upgrade</b> (version majeure)", "a_clean": "Update (correctifs) / Upgrade (version majeure)", "tag": "Anglais"}, {"q": "Comment dit-on \"dépanner\" en anglais ?", "a": "<b>To troubleshoot</b>", "a_clean": "To troubleshoot", "tag": "Anglais"}, {"q": "Comment dit-on \"mot de passe\" en anglais ?", "a": "<b>Password</b>", "a_clean": "Password", "tag": "Anglais"}, {"q": "Comment dit-on \"chiffrement\" en anglais ?", "a": "<b>Encryption</b>", "a_clean": "Encryption", "tag": "Anglais"}, {"q": "Comment dit-on \"serveur\" en anglais ?", "a": "<b>Server</b>", "a_clean": "Server", "tag": "Anglais"}, {"q": "Comment dit-on \"déploiement\" en anglais ?", "a": "<b>Deployment</b>", "a_clean": "Deployment", "tag": "Anglais"}, {"q": "Comment dit-on \"surveiller\" en anglais ?", "a": "<b>To monitor</b>", "a_clean": "To monitor", "tag": "Anglais"}, {"q": "Comment dit-on \"journaux d'événements\" en anglais ?", "a": "<b>Event logs</b>", "a_clean": "Event logs", "tag": "Anglais"}, {"q": "Que signifie \"Did you try restarting?\" ?", "a": "As-tu essayé de <b>redémarrer</b> ?", "a_clean": "As-tu essayé de redémarrer ?", "tag": "Anglais"}, {"q": "Que signifie \"I will check the logs\" ?", "a": "Je vais <b>vérifier les journaux</b>", "a_clean": "Je vais vérifier les journaux", "tag": "Anglais"}, {"q": "Que signifie \"The server is back online\" ?", "a": "Le serveur est de nouveau <b>en ligne</b>", "a_clean": "Le serveur est de nouveau en ligne", "tag": "Anglais"}, {"q": "Que signifie \"Please describe the issue\" ?", "a": "Merci de <b>décrire le problème</b>", "a_clean": "Merci de décrire le problème", "tag": "Anglais"}, {"q": "Que signifie \"patch management\" ?", "a": "<b>Gestion des correctifs</b> — processus de déploiement des mises à jour de sécurité", "a_clean": "Gestion des correctifs — processus de déploiement des mises à jour de sécurité", "tag": "Anglais"}, {"q": "Qu'est-ce que l'adresse de broadcast ?", "a": "La <b>dernière adresse</b> d'un réseau, utilisée pour envoyer un message à <b>tous les hôtes</b> du réseau (ex : 192.168.1.255 pour un /24)", "a_clean": "La dernière adresse d'un réseau, utilisée pour envoyer un message à tous les hôtes du réseau (ex : 192.168.1.255 pour un /24)", "tag": "C4-Reseau"}, {"q": "Qu'est-ce qu'une passerelle par défaut ?", "a": "L'<b>adresse IP du routeur</b> que les hôtes utilisent pour accéder à d'autres réseaux", "a_clean": "L'adresse IP du routeur que les hôtes utilisent pour accéder à d'autres réseaux", "tag": "C4-Reseau"}, {"q": "Qu'est-ce que le protocole ICMP ?", "a": "Protocole de couche 3 utilisé pour les <b>diagnostics réseau</b> : ping (echo request/reply), messages d'erreur", "a_clean": "Protocole de couche 3 utilisé pour les diagnostics réseau : ping (echo request/reply), messages d'erreur", "tag": "C4-Reseau"}, {"q": "Comment vider le cache DNS sous Windows ?", "a": "<b>ipconfig /flushdns</b>", "a_clean": "ipconfig /flushdns", "tag": "C4-Reseau"}, {"q": "Qu'est-ce qu'une zone DNS de recherche directe ?", "a": "Résout un <b>nom de domaine → adresse IP</b> (enregistrement A ou AAAA)", "a_clean": "Résout un nom de domaine → adresse IP (enregistrement A ou AAAA)", "tag": "C2-Windows"}, {"q": "Qu'est-ce qu'une zone DNS de recherche inversée ?", "a": "Résout une <b>adresse IP → nom de domaine</b> (enregistrement PTR)", "a_clean": "Résout une adresse IP → nom de domaine (enregistrement PTR)", "tag": "C2-Windows"}, {"q": "Quels sont les principaux enregistrements DNS ?", "a": "<b>A</b> : nom → IPv4<br><b>AAAA</b> : nom → IPv6<br><b>CNAME</b> : alias<br><b>MX</b> : serveur mail<br><b>NS</b> : serveur DNS<br><b>PTR</b> : IP → nom", "a_clean": "A : nom → IPv4AAAA : nom → IPv6CNAME : aliasMX : serveur mailNS : serveur DNSPTR : IP → nom", "tag": "C2-Windows"}, {"q": "Qu'est-ce qu'une réservation DHCP ?", "a": "Attribuer <b>toujours la même IP</b> à un appareil en liant son adresse MAC à une IP fixe dans le serveur DHCP", "a_clean": "Attribuer toujours la même IP à un appareil en liant son adresse MAC à une IP fixe dans le serveur DHCP", "tag": "C2-Windows"}, {"q": "Qu'est-ce que le FSMO dans l'AD ?", "a": "<b>Flexible Single Master Operations</b> — 5 rôles uniques dans un domaine AD : Schema Master, Domain Naming, RID, PDC Emulator, Infrastructure", "a_clean": "Flexible Single Master Operations — 5 rôles uniques dans un domaine AD : Schema Master, Domain Naming, RID, PDC Emulator, Infrastructure", "tag": "C2-Windows"}, {"q": "Quelle commande liste les rôles FSMO ?", "a": "<b>netdom query fsmo</b>", "a_clean": "netdom query fsmo", "tag": "C2-Windows"}, {"q": "Comment redémarrer un serveur à distance en PowerShell ?", "a": "<b>Restart-Computer -ComputerName \"NomServeur\" -Force</b>", "a_clean": "Restart-Computer -ComputerName \"NomServeur\" -Force", "tag": "C6-Scripts"}, {"q": "Comment vérifier la connectivité réseau en PowerShell ?", "a": "<b>Test-NetConnection -ComputerName google.com -Port 443</b>", "a_clean": "Test-NetConnection -ComputerName google.com -Port 443", "tag": "C6-Scripts"}, {"q": "Qu'est-ce que le pipe (|) en PowerShell ?", "a": "Envoie la <b>sortie d'une commande</b> comme entrée à la commande suivante. Ex : Get-Process | Where-Object {$_.CPU -gt 10}", "a_clean": "Envoie la sortie d'une commande comme entrée à la commande suivante. Ex : Get-Process | Where-Object {$_.CPU -gt 10}", "tag": "C6-Scripts"}, {"q": "Qu'est-ce que le pipe (|) en Bash ?", "a": "Même principe : envoie la sortie d'une commande à la suivante. Ex : <b>cat fichier.txt | grep \"erreur\"</b>", "a_clean": "Même principe : envoie la sortie d'une commande à la suivante. Ex : cat fichier.txt | grep \"erreur\"", "tag": "C6-Scripts"}, {"q": "Quelle commande recherche du texte dans un fichier sous Linux ?", "a": "<b>grep \"texte\" fichier.txt</b>", "a_clean": "grep \"texte\" fichier.txt", "tag": "C3-Linux"}, {"q": "Comment voir les logs en temps réel sous Linux ?", "a": "<b>tail -f /var/log/syslog</b>", "a_clean": "tail -f /var/log/syslog", "tag": "C3-Linux"}, {"q": "Quel fichier configure le réseau sous Debian ?", "a": "<b>/etc/network/interfaces</b> (ancien) ou <b>/etc/netplan/*.yaml</b> (Ubuntu moderne)", "a_clean": "/etc/network/interfaces (ancien) ou /etc/netplan/*.yaml (Ubuntu moderne)", "tag": "C3-Linux"}, {"q": "Quel fichier configure les résolutions DNS sous Linux ?", "a": "<b>/etc/resolv.conf</b>", "a_clean": "/etc/resolv.conf", "tag": "C3-Linux"}, {"q": "Comment monter un partage SMB/CIFS sous Linux ?", "a": "<b>mount -t cifs //serveur/partage /mnt/point -o username=user</b>", "a_clean": "mount -t cifs //serveur/partage /mnt/point -o username=user", "tag": "C3-Linux"}, {"q": "Qu'est-ce que la VoIP ?", "a": "<b>Voice over IP</b> — téléphonie qui utilise le réseau IP au lieu du réseau téléphonique classique (RTC)", "a_clean": "Voice over IP — téléphonie qui utilise le réseau IP au lieu du réseau téléphonique classique (RTC)", "tag": "VoIP"}, {"q": "Qu'est-ce que le protocole SIP ?", "a": "<b>Session Initiation Protocol</b> — protocole qui établit, modifie et termine les sessions VoIP (port <b>5060/5061</b>)", "a_clean": "Session Initiation Protocol — protocole qui établit, modifie et termine les sessions VoIP (port 5060/5061)", "tag": "VoIP"}, {"q": "Qu'est-ce que le protocole RTP ?", "a": "<b>Real-time Transport Protocol</b> — transporte les flux audio/vidéo en temps réel (utilise UDP pour la rapidité)", "a_clean": "Real-time Transport Protocol — transporte les flux audio/vidéo en temps réel (utilise UDP pour la rapidité)", "tag": "VoIP"}, {"q": "Qu'est-ce qu'un IPBX ?", "a": "<b>IP Private Branch Exchange</b> — autocommutateur téléphonique IP qui gère les appels internes et externes de l'entreprise", "a_clean": "IP Private Branch Exchange — autocommutateur téléphonique IP qui gère les appels internes et externes de l'entreprise", "tag": "VoIP"}, {"q": "Qu'est-ce que la QoS en VoIP ?", "a": "<b>Quality of Service</b> — mécanismes qui priorisent les flux voix sur le réseau pour éviter la latence, la gigue et la perte de paquets", "a_clean": "Quality of Service — mécanismes qui priorisent les flux voix sur le réseau pour éviter la latence, la gigue et la perte de paquets", "tag": "VoIP"}, {"q": "Qu'est-ce que la gigue (jitter) ?", "a": "Variation du <b>délai d'acheminement</b> des paquets — en VoIP, une gigue élevée cause des coupures et une voix hachée", "a_clean": "Variation du délai d'acheminement des paquets — en VoIP, une gigue élevée cause des coupures et une voix hachée", "tag": "VoIP"}, {"q": "Quel port utilise SIP ?", "a": "Port <b>5060</b> (non chiffré) et <b>5061</b> (chiffré TLS)", "a_clean": "Port 5060 (non chiffré) et 5061 (chiffré TLS)", "tag": "VoIP"}, {"q": "Cite un logiciel IPBX libre", "a": "<b>Asterisk</b> (ou <b>3CX</b> en version gratuite limitée, <b>FreePBX</b> basé sur Asterisk)", "a_clean": "Asterisk (ou 3CX en version gratuite limitée, FreePBX basé sur Asterisk)", "tag": "VoIP"}, {"q": "Qu'est-ce que Microsoft Exchange ?", "a": "Serveur de <b>messagerie d'entreprise</b> Microsoft — gère les emails, calendriers, contacts, salles de réunion", "a_clean": "Serveur de messagerie d'entreprise Microsoft — gère les emails, calendriers, contacts, salles de réunion", "tag": "Messagerie"}, {"q": "Quelle différence entre Exchange on-premise et Exchange Online ?", "a": "<b>On-premise</b> : serveur installé dans l'entreprise<br><b>Online</b> : hébergé par Microsoft dans le cloud (Office 365 / Microsoft 365)", "a_clean": "On-premise : serveur installé dans l'entrepriseOnline : hébergé par Microsoft dans le cloud (Office 365 / Microsoft 365)", "tag": "Messagerie"}, {"q": "Qu'est-ce qu'un relais SMTP ?", "a": "Serveur qui <b>transmet les emails</b> vers le serveur de destination — relaie le courrier entre domaines", "a_clean": "Serveur qui transmet les emails vers le serveur de destination — relaie le courrier entre domaines", "tag": "Messagerie"}, {"q": "Qu'est-ce qu'un enregistrement MX ?", "a": "Enregistrement DNS qui indique quel <b>serveur gère les emails</b> pour un domaine (MX = Mail eXchanger)", "a_clean": "Enregistrement DNS qui indique quel serveur gère les emails pour un domaine (MX = Mail eXchanger)", "tag": "Messagerie"}, {"q": "Qu'est-ce que le protocole EAS ?", "a": "<b>Exchange ActiveSync</b> — protocole de synchronisation email, contacts et calendrier entre Exchange et les <b>appareils mobiles</b>", "a_clean": "Exchange ActiveSync — protocole de synchronisation email, contacts et calendrier entre Exchange et les appareils mobiles", "tag": "Messagerie"}, {"q": "Qu'est-ce qu'un alias de messagerie ?", "a": "Adresse email <b>supplémentaire</b> qui redirige vers la boîte principale d'un utilisateur (ex : contact@societe.fr → jean.dupont@societe.fr)", "a_clean": "Adresse email supplémentaire qui redirige vers la boîte principale d'un utilisateur (ex : contact@societe.fr → jean.dupont@societe.fr)", "tag": "Messagerie"}, {"q": "Qu'est-ce que la supervision réseau ?", "a": "Surveillance en temps réel des <b>équipements, services et performances</b> du réseau pour détecter les anomalies", "a_clean": "Surveillance en temps réel des équipements, services et performances du réseau pour détecter les anomalies", "tag": "Supervision"}, {"q": "Qu'est-ce que SNMP ?", "a": "<b>Simple Network Management Protocol</b> — protocole qui permet de surveiller et gérer les équipements réseau à distance (port <b>161</b>)", "a_clean": "Simple Network Management Protocol — protocole qui permet de surveiller et gérer les équipements réseau à distance (port 161)", "tag": "Supervision"}, {"q": "Qu'est-ce qu'une trap SNMP ?", "a": "<b>Alerte envoyée spontanément</b> par un équipement réseau vers le serveur de supervision quand un événement critique se produit (port <b>162</b>)", "a_clean": "Alerte envoyée spontanément par un équipement réseau vers le serveur de supervision quand un événement critique se produit (port 162)", "tag": "Supervision"}, {"q": "Qu'est-ce qu'un OID en SNMP ?", "a": "<b>Object Identifier</b> — identifiant unique qui désigne une information précise sur un équipement (ex : charge CPU, espace disque, état d'un port)", "a_clean": "Object Identifier — identifiant unique qui désigne une information précise sur un équipement (ex : charge CPU, espace disque, état d'un port)", "tag": "Supervision"}, {"q": "Cite 3 logiciels de supervision", "a": "<b>Nagios</b> (libre), <b>Zabbix</b> (libre), <b>PRTG</b> (propriétaire), <b>Centreon</b> (libre), <b>Grafana</b> (tableaux de bord)", "a_clean": "Nagios (libre), Zabbix (libre), PRTG (propriétaire), Centreon (libre), Grafana (tableaux de bord)", "tag": "Supervision"}, {"q": "Qu'est-ce que Syslog ?", "a": "Protocole d'envoi de <b>journaux d'événements</b> centralisés — les équipements envoient leurs logs vers un serveur Syslog (port <b>514</b>)", "a_clean": "Protocole d'envoi de journaux d'événements centralisés — les équipements envoient leurs logs vers un serveur Syslog (port 514)", "tag": "Supervision"}, {"q": "Qu'est-ce qu'un tableau de bord de supervision ?", "a": "Interface graphique qui affiche en temps réel les <b>indicateurs clés</b> : disponibilité, charge CPU, bande passante, alertes", "a_clean": "Interface graphique qui affiche en temps réel les indicateurs clés : disponibilité, charge CPU, bande passante, alertes", "tag": "Supervision"}, {"q": "Qu'est-ce qu'un seuil d'alerte ?", "a": "Valeur limite configurée dans l'outil de supervision — si un indicateur <b>dépasse le seuil</b>, une alerte est déclenchée (ex : CPU > 90%)", "a_clean": "Valeur limite configurée dans l'outil de supervision — si un indicateur dépasse le seuil, une alerte est déclenchée (ex : CPU > 90%)", "tag": "Supervision"}, {"q": "Combien d'hôtes dans un réseau /25 ?", "a": "<b>126 hôtes</b> (128 - réseau - broadcast)", "a_clean": "126 hôtes (128 - réseau - broadcast)", "tag": "Calcul-Reseau"}, {"q": "Combien d'hôtes dans un réseau /26 ?", "a": "<b>62 hôtes</b> (64 - 2)", "a_clean": "62 hôtes (64 - 2)", "tag": "Calcul-Reseau"}, {"q": "Combien d'hôtes dans un réseau /27 ?", "a": "<b>30 hôtes</b> (32 - 2)", "a_clean": "30 hôtes (32 - 2)", "tag": "Calcul-Reseau"}, {"q": "Combien d'hôtes dans un réseau /28 ?", "a": "<b>14 hôtes</b> (16 - 2)", "a_clean": "14 hôtes (16 - 2)", "tag": "Calcul-Reseau"}, {"q": "Combien d'hôtes dans un réseau /30 ?", "a": "<b>2 hôtes</b> — utilisé pour les liens point à point entre routeurs", "a_clean": "2 hôtes — utilisé pour les liens point à point entre routeurs", "tag": "Calcul-Reseau"}, {"q": "Quel est le masque de /25 ?", "a": "<b>255.255.255.128</b>", "a_clean": "255.255.255.128", "tag": "Calcul-Reseau"}, {"q": "Quel est le masque de /26 ?", "a": "<b>255.255.255.192</b>", "a_clean": "255.255.255.192", "tag": "Calcul-Reseau"}, {"q": "Quel est le masque de /27 ?", "a": "<b>255.255.255.224</b>", "a_clean": "255.255.255.224", "tag": "Calcul-Reseau"}, {"q": "Quel est le masque de /28 ?", "a": "<b>255.255.255.240</b>", "a_clean": "255.255.255.240", "tag": "Calcul-Reseau"}, {"q": "Quelle est la plage d'adresses de 192.168.1.0/26 ?", "a": "Réseau : 192.168.1.0<br>Première IP : <b>192.168.1.1</b><br>Dernière IP : <b>192.168.1.62</b><br>Broadcast : 192.168.1.63", "a_clean": "Réseau : 192.168.1.0Première IP : 192.168.1.1Dernière IP : 192.168.1.62Broadcast : 192.168.1.63", "tag": "Calcul-Reseau"}, {"q": "Qu'est-ce que le phishing ?", "a": "Technique d'<b>ingénierie sociale</b> — l'attaquant se fait passer pour un tiers de confiance (email, SMS) pour voler des identifiants ou données", "a_clean": "Technique d'ingénierie sociale — l'attaquant se fait passer pour un tiers de confiance (email, SMS) pour voler des identifiants ou données", "tag": "Attaques"}, {"q": "Qu'est-ce qu'une attaque brute force ?", "a": "<b>Tester toutes les combinaisons</b> possibles de mots de passe jusqu'à trouver le bon — parade : verrouillage de compte, MFA", "a_clean": "Tester toutes les combinaisons possibles de mots de passe jusqu'à trouver le bon — parade : verrouillage de compte, MFA", "tag": "Attaques"}, {"q": "Qu'est-ce qu'une attaque DDoS ?", "a": "<b>Distributed Denial of Service</b> — saturer un serveur avec un volume massif de requêtes pour le rendre indisponible", "a_clean": "Distributed Denial of Service — saturer un serveur avec un volume massif de requêtes pour le rendre indisponible", "tag": "Attaques"}, {"q": "Qu'est-ce qu'une attaque Man-in-the-Middle ?", "a": "L'attaquant <b>s'intercale entre deux parties</b> pour intercepter ou modifier les communications — parade : HTTPS, VPN", "a_clean": "L'attaquant s'intercale entre deux parties pour intercepter ou modifier les communications — parade : HTTPS, VPN", "tag": "Attaques"}, {"q": "Qu'est-ce que le principe du moindre privilège ?", "a": "Donner à chaque utilisateur <b>uniquement les droits nécessaires</b> à son travail — pas plus", "a_clean": "Donner à chaque utilisateur uniquement les droits nécessaires à son travail — pas plus", "tag": "Attaques"}, {"q": "Qu'est-ce qu'un EDR ?", "a": "<b>Endpoint Detection and Response</b> — solution de sécurité avancée sur les postes de travail, plus puissante qu'un antivirus classique (détection comportementale)", "a_clean": "Endpoint Detection and Response — solution de sécurité avancée sur les postes de travail, plus puissante qu'un antivirus classique (détection comportementale)", "tag": "Attaques"}, {"q": "Qu'est-ce que le RAID 0 ?", "a": "<b>Striping sans redondance</b> — données réparties sur 2+ disques pour la vitesse, mais <b>aucune tolérance à la panne</b> (si 1 disque tombe, tout est perdu)", "a_clean": "Striping sans redondance — données réparties sur 2+ disques pour la vitesse, mais aucune tolérance à la panne (si 1 disque tombe, tout est perdu)", "tag": "RAID"}, {"q": "Qu'est-ce que le RAID 6 ?", "a": "<b>Striping avec double parité</b> — comme RAID 5 mais tolère la panne de <b>2 disques</b> simultanément (minimum 4 disques)", "a_clean": "Striping avec double parité — comme RAID 5 mais tolère la panne de 2 disques simultanément (minimum 4 disques)", "tag": "RAID"}, {"q": "Qu'est-ce que le RAID 10 (1+0) ?", "a": "<b>Miroir + Striping</b> — combinaison de RAID 1 et RAID 0, offre performance ET redondance (minimum 4 disques)", "a_clean": "Miroir + Striping — combinaison de RAID 1 et RAID 0, offre performance ET redondance (minimum 4 disques)", "tag": "RAID"}, {"q": "Qu'est-ce qu'un câble RJ45 ?", "a": "Connecteur standard pour les câbles réseau Ethernet — <b>8 broches</b>, catégories Cat5e à Cat6a", "a_clean": "Connecteur standard pour les câbles réseau Ethernet — 8 broches, catégories Cat5e à Cat6a", "tag": "Cablage"}, {"q": "Quelle différence entre Cat5e et Cat6 ?", "a": "<b>Cat5e</b> : jusqu'à 1 Gbit/s sur 100m<br><b>Cat6</b> : jusqu'à 10 Gbit/s sur 55m (ou 1 Gbit/s sur 100m)", "a_clean": "Cat5e : jusqu'à 1 Gbit/s sur 100mCat6 : jusqu'à 10 Gbit/s sur 55m (ou 1 Gbit/s sur 100m)", "tag": "Cablage"}, {"q": "Quelle différence entre fibre monomode et multimode ?", "a": "<b>Monomode</b> : un seul rayon lumineux, très longue distance (jusqu'à 100 km), plus coûteuse<br><b>Multimode</b> : plusieurs rayons, courte distance (jusqu'à 2 km), moins chère", "a_clean": "Monomode : un seul rayon lumineux, très longue distance (jusqu'à 100 km), plus coûteuseMultimode : plusieurs rayons, courte distance (jusqu'à 2 km), moins chère", "tag": "Cablage"}, {"q": "Qu'est-ce qu'une baie de brassage ?", "a": "Armoire technique qui regroupe les <b>équipements réseau</b> (switchs, patchs panels, serveurs) dans un rack normalisé (19 pouces)", "a_clean": "Armoire technique qui regroupe les équipements réseau (switchs, patchs panels, serveurs) dans un rack normalisé (19 pouces)", "tag": "Cablage"}, {"q": "Qu'est-ce qu'un panneau de brassage (patch panel) ?", "a": "Panneau avec des <b>ports RJ45</b> qui centralise les raccordements réseau — relie les prises murales aux switchs", "a_clean": "Panneau avec des ports RJ45 qui centralise les raccordements réseau — relie les prises murales aux switchs", "tag": "Cablage"}, {"q": "Qu'est-ce qu'un câble droit vs croisé ?", "a": "<b>Droit</b> : relie des équipements différents (PC → switch)<br><b>Croisé</b> : relie des équipements identiques (PC → PC, switch → switch) — obsolète avec l'Auto-MDI/X", "a_clean": "Droit : relie des équipements différents (PC → switch)Croisé : relie des équipements identiques (PC → PC, switch → switch) — obsolète avec l'Auto-MDI/X", "tag": "Cablage"}, {"q": "Qu'est-ce que la veille technologique pour un TSSR ?", "a": "Se tenir informé des <b>évolutions technologiques</b> (nouvelles versions, failles de sécurité, nouveaux outils) via blogs, forums, newsletters", "a_clean": "Se tenir informé des évolutions technologiques (nouvelles versions, failles de sécurité, nouveaux outils) via blogs, forums, newsletters", "tag": "Veille-Eco"}, {"q": "Qu'est-ce que l'écoresponsabilité numérique ?", "a": "<b>Réduire l'impact environnemental</b> de l'IT : allonger la durée de vie du matériel, éteindre les postes, virtualiser, recycler les DEEE", "a_clean": "Réduire l'impact environnemental de l'IT : allonger la durée de vie du matériel, éteindre les postes, virtualiser, recycler les DEEE", "tag": "Veille-Eco"}, {"q": "Qu'est-ce qu'un DEEE ?", "a": "<b>Déchet d'Équipement Électrique et Électronique</b> — doit être collecté et recyclé conformément à la réglementation (pas de poubelle ordinaire)", "a_clean": "Déchet d'Équipement Électrique et Électronique — doit être collecté et recyclé conformément à la réglementation (pas de poubelle ordinaire)", "tag": "Veille-Eco"}];
+const ALL_TAGS = ["Anglais", "Attaques", "C1-Support", "C2-Windows", "C3-Linux", "C4-Reseau", "C5-Virtualisation", "C6-Scripts", "C7-Securite", "C8-Sauvegardes", "C9-Deploiement", "Cablage", "Calcul-Reseau", "Messagerie", "OSI", "Ports", "RAID", "Supervision", "Veille-Eco", "VoIP"];
+const TAG_DISPLAY = {"OSI": "🏗 OSI", "Ports": "🚪 Ports", "C1-Support": "🎫 Support", "C2-Windows": "🪟 Windows", "C3-Linux": "🐧 Linux", "C4-Reseau": "🌐 Réseau", "C5-Virtualisation": "☁️ Virtualisation", "C6-Scripts": "⚙️ Scripts", "C7-Securite": "📡 Sécurité", "C8-Sauvegardes": "💾 Sauvegardes", "C9-Deploiement": "🚀 Déploiement", "Anglais": "🇬🇧 Anglais", "Calcul-Reseau": "🔢 Calcul réseau", "VoIP": "📞 VoIP", "Supervision": "📊 Supervision", "Messagerie": "📧 Messagerie", "Cablage": "🔌 Câblage", "Attaques": "🛡 Attaques", "RAID": "💿 RAID", "Veille-Eco": "🌿 Veille & Éco"};
+
+
+/* ═══════════════════
+   STATE
+   ═══════════════════ */
+let selectedTags = new Set();
+let quizQuestions = [];
+let currentIdx = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let wrongQuestions = [];
+let answered = false;
+
+/* ═══════════════════
+   START SCREEN
+   ═══════════════════ */
+function buildTagGrid() {
+  const grid = document.getElementById('tag-grid');
+  grid.innerHTML = '';
+  ALL_TAGS.forEach(tag => {
+    const count = ALL_QUESTIONS.filter(q => q.tag === tag).length;
+    const display = TAG_DISPLAY[tag] || tag;
+    const btn = document.createElement('button');
+    btn.className = 'tag-btn';
+    btn.dataset.tag = tag;
+    btn.innerHTML = `<span>${display}</span><span class="tag-count">${count}</span>`;
+    btn.onclick = () => toggleTag(tag, btn);
+    grid.appendChild(btn);
+  });
+}
+
+function toggleTag(tag, btn) {
+  if (selectedTags.has(tag)) {
+    selectedTags.delete(tag);
+    btn.classList.remove('active');
+  } else {
+    selectedTags.add(tag);
+    btn.classList.add('active');
+  }
+  updateSelectedCount();
+}
+
+function selectAll() {
+  ALL_TAGS.forEach(tag => selectedTags.add(tag));
+  document.querySelectorAll('.tag-btn').forEach(b => b.classList.add('active'));
+  updateSelectedCount();
+}
+
+function selectNone() {
+  selectedTags.clear();
+  document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+  updateSelectedCount();
+}
+
+function updateSelectedCount() {
+  const count = ALL_QUESTIONS.filter(q => selectedTags.has(q.tag)).length;
+  document.getElementById('selected-count').textContent = count;
+}
+
+/* ═══════════════════
+   QUIZ LOGIC
+   ═══════════════════ */
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startQuiz() {
+  if (selectedTags.size === 0) {
+    selectAll();
+  }
+  quizQuestions = shuffle(ALL_QUESTIONS.filter(q => selectedTags.has(q.tag)));
+  if (quizQuestions.length === 0) return;
+
+  currentIdx = 0;
+  correctCount = 0;
+  wrongCount = 0;
+  wrongQuestions = [];
+  answered = false;
+
+  document.getElementById('start-screen').style.display = 'none';
+  document.getElementById('results-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display = 'block';
+  document.getElementById('header').style.display = 'flex';
+  document.getElementById('progress-bar').style.display = 'block';
+  document.getElementById('score-correct').textContent = '0';
+  document.getElementById('score-wrong').textContent = '0';
+
+  showQuestion();
+}
+
+function retryWrong() {
+  if (wrongQuestions.length === 0) { backToStart(); return; }
+  quizQuestions = shuffle(wrongQuestions);
+  currentIdx = 0;
+  correctCount = 0;
+  wrongCount = 0;
+  wrongQuestions = [];
+  answered = false;
+
+  document.getElementById('results-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display = 'block';
+  document.getElementById('header').style.display = 'flex';
+  document.getElementById('progress-bar').style.display = 'block';
+  document.getElementById('score-correct').textContent = '0';
+  document.getElementById('score-wrong').textContent = '0';
+
+  showQuestion();
+}
+
+function generateChoices(questionObj) {
+  const correct = questionObj.a;
+  const correctClean = questionObj.a_clean;
+  const tag = questionObj.tag;
+
+  /* Get wrong answers: prefer same tag, then random */
+  let pool = ALL_QUESTIONS.filter(q => q.a_clean !== correctClean);
+  let sameTag = pool.filter(q => q.tag === tag);
+  let otherTag = pool.filter(q => q.tag !== tag);
+
+  /* Pick 3 distractors: 2 from same tag if possible, 1 from other */
+  sameTag = shuffle(sameTag);
+  otherTag = shuffle(otherTag);
+
+  let distractors = [];
+  let usedAnswers = new Set([correctClean]);
+
+  function addDistractor(source) {
+    for (const q of source) {
+      if (!usedAnswers.has(q.a_clean) && distractors.length < 3) {
+        distractors.push(q.a);
+        usedAnswers.add(q.a_clean);
+      }
+    }
+  }
+
+  addDistractor(sameTag);
+  addDistractor(otherTag);
+
+  /* Fallback if not enough */
+  while (distractors.length < 3) {
+    distractors.push("Aucune des autres réponses");
+  }
+
+  /* Shuffle all 4 choices */
+  let choices = shuffle([
+    { html: correct, isCorrect: true },
+    ...distractors.map(d => ({ html: d, isCorrect: false }))
+  ]);
+
+  return choices;
+}
+
+function showQuestion() {
+  answered = false;
+  const q = quizQuestions[currentIdx];
+  const display = TAG_DISPLAY[q.tag] || q.tag;
+
+  document.getElementById('question-tag').textContent = display;
+  document.getElementById('question-number').textContent = (currentIdx + 1) + ' / ' + quizQuestions.length;
+  document.getElementById('question-text').textContent = q.q;
+  document.getElementById('explanation').style.display = 'none';
+  document.getElementById('next-zone').style.display = 'none';
+
+  /* Progress */
+  const pct = (currentIdx / quizQuestions.length) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+
+  /* Choices */
+  const choices = generateChoices(q);
+  const container = document.getElementById('choices');
+  container.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+
+  choices.forEach((c, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.innerHTML = `<span class="choice-letter">${letters[idx]}</span><span class="choice-text">${c.html}</span>`;
+    btn.onclick = () => selectChoice(btn, c.isCorrect, container, q);
+    container.appendChild(btn);
+  });
+
+  /* Scroll to top */
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function selectChoice(btn, isCorrect, container, q) {
+  if (answered) return;
+  answered = true;
+
+  /* Mark all buttons as disabled */
+  container.querySelectorAll('.choice-btn').forEach(b => {
+    b.classList.add('disabled');
+    /* Find the correct one and mark it green */
+    if (b.querySelector('.choice-text').innerHTML === q.a) {
+      b.classList.add('correct');
+    } else if (b !== btn) {
+      b.classList.add('dimmed');
+    }
+  });
+
+  if (isCorrect) {
+    btn.classList.add('correct');
+    correctCount++;
+    document.getElementById('score-correct').textContent = correctCount;
+  } else {
+    btn.classList.add('wrong');
+    wrongCount++;
+    wrongQuestions.push(q);
+    document.getElementById('score-wrong').textContent = wrongCount;
+  }
+
+  /* Show explanation — rich version */
+  const exp = document.getElementById('explanation');
+  const memo = MEMOS[q.q] || null;
+  const memoHtml = memo ? `<div class="memo"><div class="memo-label">💡 Astuce mémo</div>${memo}</div>` : '';
+  
+  /* Get pedagogical explanation */
+  const pedagogy = EXPLANATIONS[q.q] || null;
+  const pedagogyHtml = pedagogy 
+    ? `<div class="pedagogy"><div class="pedagogy-label">📖 Pour bien comprendre</div>${pedagogy}</div>`
+    : '';
+  
+  if (isCorrect) {
+    exp.className = 'correct';
+    exp.innerHTML = `
+      <div class="exp-header">
+        <div class="exp-icon">✓</div>
+        <div>Bonne réponse !</div>
+      </div>
+      <div class="exp-body">
+        <div class="answer-content">${q.a}</div>
+        ${pedagogyHtml}
+        ${memoHtml}
+      </div>
+    `;
+  } else {
+    exp.className = 'wrong';
+    exp.innerHTML = `
+      <div class="exp-header">
+        <div class="exp-icon">✗</div>
+        <div>Pas tout à fait...</div>
+      </div>
+      <div class="exp-body">
+        <div class="correct-answer">
+          <div class="correct-answer-label">✓ La bonne réponse était</div>
+          <div class="answer-content">${q.a}</div>
+        </div>
+        ${pedagogyHtml}
+        ${memoHtml}
+      </div>
+    `;
+  }
+  exp.style.display = 'block';
+
+  /* Show next button */
+  const nextZone = document.getElementById('next-zone');
+  nextZone.style.display = 'block';
+
+  if (currentIdx >= quizQuestions.length - 1) {
+    document.getElementById('btn-next').textContent = 'Voir les résultats →';
+  } else {
+    document.getElementById('btn-next').textContent = 'Question suivante →';
+  }
+}
+
+function nextQuestion() {
+  currentIdx++;
+  if (currentIdx >= quizQuestions.length) {
+    showResults();
+    return;
+  }
+  showQuestion();
+}
+
+/* ═══════════════════
+   RESULTS
+   ═══════════════════ */
+function showResults() {
+  document.getElementById('quiz-screen').style.display = 'none';
+  document.getElementById('next-zone').style.display = 'none';
+  document.getElementById('header').style.display = 'none';
+  document.getElementById('progress-bar').style.display = 'none';
+  document.getElementById('results-screen').style.display = 'block';
+
+  const total = correctCount + wrongCount;
+  const pct = Math.round((correctCount / total) * 100);
+
+  document.getElementById('results-pct').textContent = pct + '%';
+  document.getElementById('final-correct').textContent = correctCount;
+  document.getElementById('final-wrong').textContent = wrongCount;
+
+  const circle = document.getElementById('results-circle');
+  const title = document.getElementById('results-title');
+  const sub = document.getElementById('results-sub');
+
+  if (pct >= 90) {
+    circle.style.background = 'var(--green-bg)';
+    circle.style.border = '3px solid var(--green)';
+    circle.querySelector('.results-pct').style.color = 'var(--green)';
+    title.textContent = '🎉 Excellent !';
+    sub.textContent = 'Tu maîtrises ce sujet. Continue comme ça pour juillet !';
+  } else if (pct >= 70) {
+    circle.style.background = 'rgba(251,191,36,0.1)';
+    circle.style.border = '3px solid var(--orange)';
+    circle.querySelector('.results-pct').style.color = 'var(--orange)';
+    title.textContent = '👍 Bien !';
+    sub.textContent = 'Bon niveau, mais refais les erreurs pour consolider.';
+  } else if (pct >= 50) {
+    circle.style.background = 'rgba(251,191,36,0.08)';
+    circle.style.border = '3px solid var(--orange)';
+    circle.querySelector('.results-pct').style.color = 'var(--orange)';
+    title.textContent = '💪 En progrès';
+    sub.textContent = 'Continue à réviser, tu progresses ! Refais les erreurs.';
+  } else {
+    circle.style.background = 'var(--red-bg)';
+    circle.style.border = '3px solid var(--red)';
+    circle.querySelector('.results-pct').style.color = 'var(--red)';
+    title.textContent = '📚 À travailler';
+    sub.textContent = 'Ce thème nécessite plus de révision. Pas de panique, refais le quiz !';
+  }
+
+  window.scrollTo({ top: 0 });
+}
+
+function backToStart() {
+  document.getElementById('results-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display = 'none';
+  document.getElementById('header').style.display = 'none';
+  document.getElementById('progress-bar').style.display = 'none';
+  document.getElementById('start-screen').style.display = 'flex';
+}
+
+/* ═══════════════════
+   INIT
+   ═══════════════════ */
+buildTagGrid();
+selectAll();
+</script>
+</body>
+</html>
